@@ -1,21 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { lazy, Suspense, useState, useEffect } from 'react';
 import { Sparkles, Bot } from 'lucide-react';
 import { Navbar } from './components/Navbar';
 import { PortfolioView } from './components/views/PortfolioView';
-import { ReadingInterface } from './components/ReadingInterface';
 import { Footer } from './components/layout/Footer';
-import { Top10BenchmarkModal } from './components/Top10BenchmarkModal';
-import { DashboardArchitectureModal } from './components/DashboardArchitectureModal';
-import { MathDeepDiveModal } from './components/MathDeepDiveModal';
-import { SubscribeModal } from './components/SubscribeModal';
-import { DiscoverabilityModal } from './components/seo/DiscoverabilityModal';
-import { GlobalCommunityHubModal } from './components/community/GlobalCommunityHubModal';
-import { DownloadMonographModal } from './components/DownloadMonographModal';
-import { AiScholarAssistantModal } from './components/AiScholarAssistantModal';
 import { SEOHead } from './components/seo/SEOHead';
 import { publicationService } from './services/publicationService';
 import { telemetryService } from './services/telemetryService';
 import { Publication } from './types';
+
+// The research reader bundles D3, export tooling, and interactive charts. Dialogs
+// are similarly optional, so keeping them out of the landing-page bundle makes
+// the first render faster on mobile and constrained connections.
+const ReadingInterface = lazy(() => import('./components/ReadingInterface').then(({ ReadingInterface }) => ({ default: ReadingInterface })));
+const Top10BenchmarkModal = lazy(() => import('./components/Top10BenchmarkModal').then(({ Top10BenchmarkModal }) => ({ default: Top10BenchmarkModal })));
+const DashboardArchitectureModal = lazy(() => import('./components/DashboardArchitectureModal').then(({ DashboardArchitectureModal }) => ({ default: DashboardArchitectureModal })));
+const MathDeepDiveModal = lazy(() => import('./components/MathDeepDiveModal').then(({ MathDeepDiveModal }) => ({ default: MathDeepDiveModal })));
+const SubscribeModal = lazy(() => import('./components/SubscribeModal').then(({ SubscribeModal }) => ({ default: SubscribeModal })));
+const DiscoverabilityModal = lazy(() => import('./components/seo/DiscoverabilityModal').then(({ DiscoverabilityModal }) => ({ default: DiscoverabilityModal })));
+const GlobalCommunityHubModal = lazy(() => import('./components/community/GlobalCommunityHubModal').then(({ GlobalCommunityHubModal }) => ({ default: GlobalCommunityHubModal })));
+const DownloadMonographModal = lazy(() => import('./components/DownloadMonographModal').then(({ DownloadMonographModal }) => ({ default: DownloadMonographModal })));
+const AiScholarAssistantModal = lazy(() => import('./components/AiScholarAssistantModal').then(({ AiScholarAssistantModal }) => ({ default: AiScholarAssistantModal })));
 
 /**
  * Main Application Orchestrator
@@ -115,15 +119,17 @@ export default function App() {
 
       {/* Main View Router */}
       {activeView === 'reader' ? (
-        <ReadingInterface
-          publication={selectedPublication}
-          onBack={handleBackToPortfolio}
-          onOpenArchitecture={() => setIsArchitectureOpen(true)}
-          onOpenMathDeepDive={() => setIsMathDeepDiveOpen(true)}
-          onOpenDiscoverability={() => setIsDiscoverabilityOpen(true)}
-          onOpenGlobalCommunity={handleOpenGlobalCommunity}
-          onOpenDownload={handleOpenDownload}
-        />
+        <Suspense fallback={<main className="flex-1" aria-busy="true" />}>
+          <ReadingInterface
+            publication={selectedPublication}
+            onBack={handleBackToPortfolio}
+            onOpenArchitecture={() => setIsArchitectureOpen(true)}
+            onOpenMathDeepDive={() => setIsMathDeepDiveOpen(true)}
+            onOpenDiscoverability={() => setIsDiscoverabilityOpen(true)}
+            onOpenGlobalCommunity={handleOpenGlobalCommunity}
+            onOpenDownload={handleOpenDownload}
+          />
+        </Suspense>
       ) : (
         <PortfolioView
           onReadPublication={handleReadPublication}
@@ -162,52 +168,16 @@ export default function App() {
       </button>
 
       {/* Global Academic, Community & Discoverability Modals */}
-      <AiScholarAssistantModal
-        isOpen={isAiAssistantOpen}
-        onClose={() => setIsAiAssistantOpen(false)}
-        publications={publicationService.getAll()}
-        selectedPublication={selectedPublication}
-        onJumpToSection={handleJumpToSection}
-      />
-
-      <DownloadMonographModal
-        isOpen={isDownloadOpen}
-        onClose={() => setIsDownloadOpen(false)}
-        publication={downloadTargetPub}
-      />
-
-      <GlobalCommunityHubModal
-        isOpen={isGlobalCommunityOpen}
-        onClose={() => setIsGlobalCommunityOpen(false)}
-        initialTab={globalCommunityInitialTab}
-      />
-
-      <DiscoverabilityModal
-        isOpen={isDiscoverabilityOpen}
-        onClose={() => setIsDiscoverabilityOpen(false)}
-        activePublication={activeView === 'reader' ? selectedPublication : null}
-      />
-
-      <MathDeepDiveModal
-        isOpen={isMathDeepDiveOpen}
-        onClose={() => setIsMathDeepDiveOpen(false)}
-      />
-
-      <Top10BenchmarkModal
-        isOpen={isBenchmarkOpen}
-        onClose={() => setIsBenchmarkOpen(false)}
-      />
-
-      <DashboardArchitectureModal
-        isOpen={isArchitectureOpen}
-        onClose={() => setIsArchitectureOpen(false)}
-      />
-
-      <SubscribeModal
-        isOpen={isSubscribeOpen}
-        onClose={() => setIsSubscribeOpen(false)}
-      />
+      <Suspense fallback={null}>
+        {isAiAssistantOpen && <AiScholarAssistantModal isOpen onClose={() => setIsAiAssistantOpen(false)} publications={publicationService.getAll()} selectedPublication={selectedPublication} onJumpToSection={handleJumpToSection} />}
+        {isDownloadOpen && <DownloadMonographModal isOpen onClose={() => setIsDownloadOpen(false)} publication={downloadTargetPub} />}
+        {isGlobalCommunityOpen && <GlobalCommunityHubModal isOpen onClose={() => setIsGlobalCommunityOpen(false)} initialTab={globalCommunityInitialTab} />}
+        {isDiscoverabilityOpen && <DiscoverabilityModal isOpen onClose={() => setIsDiscoverabilityOpen(false)} activePublication={activeView === 'reader' ? selectedPublication : null} />}
+        {isMathDeepDiveOpen && <MathDeepDiveModal isOpen onClose={() => setIsMathDeepDiveOpen(false)} />}
+        {isBenchmarkOpen && <Top10BenchmarkModal isOpen onClose={() => setIsBenchmarkOpen(false)} />}
+        {isArchitectureOpen && <DashboardArchitectureModal isOpen onClose={() => setIsArchitectureOpen(false)} />}
+        {isSubscribeOpen && <SubscribeModal isOpen onClose={() => setIsSubscribeOpen(false)} />}
+      </Suspense>
     </div>
   );
 }
-

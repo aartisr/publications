@@ -6,7 +6,7 @@
   
   <!-- Root Academic Archive -->
   <url>
-    <loc>https://ai-aarti.com/</loc>
+    <loc>https://publications.ai-aarti.com/</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
@@ -14,7 +14,7 @@
 
   <!-- Publications Directory -->
   <url>
-    <loc>https://ai-aarti.com/publications</loc>
+    <loc>https://publications.ai-aarti.com/publications</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.95</priority>
@@ -22,7 +22,7 @@
 
   <!-- Landmark Inaugural Paper -->
   <url>
-    <loc>https://ai-aarti.com/publications/urban-heat-democratization</loc>
+    <loc>https://publications.ai-aarti.com/publications/urban-heat-democratization</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
@@ -30,7 +30,7 @@
 
   <!-- Spectral Graph Laplacians & Cheeger Bounds -->
   <url>
-    <loc>https://ai-aarti.com/publications/spectral-graph-cheeger-cuts</loc>
+    <loc>https://publications.ai-aarti.com/publications/spectral-graph-cheeger-cuts</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
@@ -38,7 +38,7 @@
 
   <!-- GMRF Super-Resolution Satellite Downscaling -->
   <url>
-    <loc>https://ai-aarti.com/publications/gmrf-super-resolution-satellite</loc>
+    <loc>https://publications.ai-aarti.com/publications/gmrf-super-resolution-satellite</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.90</priority>
@@ -46,7 +46,7 @@
 
   <!-- Sub-Canopy Thermodynamic Boundary Layer Physics -->
   <url>
-    <loc>https://ai-aarti.com/publications/subcanopy-boundary-layer-physics</loc>
+    <loc>https://publications.ai-aarti.com/publications/subcanopy-boundary-layer-physics</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
@@ -54,7 +54,7 @@
 
   <!-- Policy Brief: Municipal Capital Planning -->
   <url>
-    <loc>https://ai-aarti.com/publications/computational-climatology-policy</loc>
+    <loc>https://publications.ai-aarti.com/publications/computational-climatology-policy</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -62,7 +62,7 @@
 
   <!-- NSF Cyberinfrastructure Grant -->
   <url>
-    <loc>https://ai-aarti.com/publications/nsf-cyberinfrastructure-proposal</loc>
+    <loc>https://publications.ai-aarti.com/publications/nsf-cyberinfrastructure-proposal</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
@@ -70,7 +70,7 @@
 
   <!-- Machine-Readable LLM Manifest -->
   <url>
-    <loc>https://ai-aarti.com/llms.txt</loc>
+    <loc>https://publications.ai-aarti.com/llms.txt</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
@@ -78,7 +78,7 @@
 
   <!-- Citation File Format -->
   <url>
-    <loc>https://ai-aarti.com/citation.cff</loc>
+    <loc>https://publications.ai-aarti.com/citation.cff</loc>
     <lastmod>2026-09-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>

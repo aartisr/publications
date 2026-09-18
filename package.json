@@ -11,7 +11,9 @@
     "build": "vite build",
     "preview": "vite preview",
     "clean": "rm -rf dist server.js",
-    "lint": "tsc --noEmit"
+    "lint": "tsc --noEmit",
+    "indexnow:submit": "node scripts/indexnow-submit.mjs --submit",
+    "indexnow:dry-run": "node scripts/indexnow-submit.mjs"
   },
   "dependencies": {
     "@google/genai": "^2.4.0",

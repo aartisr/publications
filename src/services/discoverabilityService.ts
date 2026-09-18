@@ -18,7 +18,9 @@ export interface DiscoverabilityMetadata {
  * and Academic Citation Engine.
  */
 class DiscoverabilityService {
-  private readonly baseUrl = 'https://ai-aarti.com';
+  // This is the one public, indexable origin for this application. GitHub Pages
+  // remains a distribution mirror and must not compete with the canonical site.
+  private readonly baseUrl = 'https://publications.ai-aarti.com';
   private readonly defaultAuthor = 'Aarti Sri Ravikumar';
   private readonly defaultOrcid = 'https://orcid.org/0009-0004-8921-9302';
   private readonly defaultAffiliation = 'ai-aarti.com & PCSS-II';
@@ -40,7 +42,7 @@ class DiscoverabilityService {
     const title = 'Aarti Sri Ravikumar | Academic Publications & Research Archive';
     const description =
       'The official academic portfolio and computational research repository of Aarti Sri Ravikumar. Open-access planetary computing, spectral graph Laplacians, Cheeger cuts, GMRF satellite radiometry downscaling, and urban heat democratization.';
-    const canonicalUrl = `${this.baseUrl}/publications`;
+    const canonicalUrl = this.baseUrl;
     const ogImage = `${this.baseUrl}/assets/og-preview.png`;
 
     const jsonLdSchemas = [

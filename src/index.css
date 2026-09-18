@@ -10,6 +10,44 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+  }
+
+  img,
+  svg,
+  video,
+  canvas {
+    max-width: 100%;
+  }
+
+  button,
+  a,
+  input,
+  select,
+  textarea {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :focus-visible {
+    outline: 3px solid #d97706;
+    outline-offset: 3px;
+  }
+}
+
+/* Motion is decorative here; respect operating-system accessibility settings. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }
 

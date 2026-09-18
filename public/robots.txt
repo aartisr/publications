@@ -53,5 +53,4 @@ Allow: /
 # See /llms.txt for AI assistant documentation
 # See /citation.cff for software and publication citation data
 
-Sitemap: https://ai-aarti.com/sitemap.xml
 Sitemap: https://publications.ai-aarti.com/sitemap.xml
