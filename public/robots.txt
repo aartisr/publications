@@ -1,0 +1,57 @@
+# robots.txt for Aarti Sri Ravikumar Publications & Academic Archive
+# Open access research platform: Explicitly open to all Web and AI Search Indexers
+
+User-agent: *
+Allow: /
+Disallow: /private/
+Disallow: /drafts/
+
+# AI, LLM, and Generative Search Engines (AIO / GEO / AEI / AXO)
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# Direct LLM Documentation & Machine Context Manifest
+# See /llms.txt for AI assistant documentation
+# See /citation.cff for software and publication citation data
+
+Sitemap: https://ai-aarti.com/sitemap.xml
+Sitemap: https://publications.ai-aarti.com/sitemap.xml

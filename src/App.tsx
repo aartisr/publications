@@ -7,12 +7,15 @@ import { Top10BenchmarkModal } from './components/Top10BenchmarkModal';
 import { DashboardArchitectureModal } from './components/DashboardArchitectureModal';
 import { MathDeepDiveModal } from './components/MathDeepDiveModal';
 import { SubscribeModal } from './components/SubscribeModal';
+import { DiscoverabilityModal } from './components/seo/DiscoverabilityModal';
+import { SEOHead } from './components/seo/SEOHead';
 import { publicationService } from './services/publicationService';
 import { Publication } from './types';
 
 /**
  * Main Application Orchestrator
  * High-performance, modular, plug-and-play architecture for scientific publications.
+ * Includes complete GEO, AIO, AEI, AXO, and Highwire Press SEO discoverability layer.
  */
 export default function App() {
   const [activeView, setActiveView] = useState<'portfolio' | 'reader'>('portfolio');
@@ -25,6 +28,7 @@ export default function App() {
   const [isArchitectureOpen, setIsArchitectureOpen] = useState(false);
   const [isMathDeepDiveOpen, setIsMathDeepDiveOpen] = useState(false);
   const [isSubscribeOpen, setIsSubscribeOpen] = useState(false);
+  const [isDiscoverabilityOpen, setIsDiscoverabilityOpen] = useState(false);
 
   // Smooth scroll to top on view changes
   const handleReadPublication = (pub: Publication) => {
@@ -40,12 +44,16 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#FAF8F5] text-slate-900 font-sans selection:bg-amber-200 selection:text-amber-950 flex flex-col">
+      {/* Dynamic SEO, GEO, AIO, OpenGraph, Highwire Press & Schema.org Injector */}
+      <SEOHead publication={activeView === 'reader' ? selectedPublication : null} />
+
       {/* Global Navigation Header */}
       <Navbar
         onOpenBenchmarks={() => setIsBenchmarkOpen(true)}
         onOpenArchitecture={() => setIsArchitectureOpen(true)}
         onOpenMathDeepDive={() => setIsMathDeepDiveOpen(true)}
         onOpenSubscribe={() => setIsSubscribeOpen(true)}
+        onOpenDiscoverability={() => setIsDiscoverabilityOpen(true)}
         activeView={activeView}
         onToggleView={(view) => {
           setActiveView(view);
@@ -60,6 +68,7 @@ export default function App() {
           onBack={handleBackToPortfolio}
           onOpenArchitecture={() => setIsArchitectureOpen(true)}
           onOpenMathDeepDive={() => setIsMathDeepDiveOpen(true)}
+          onOpenDiscoverability={() => setIsDiscoverabilityOpen(true)}
         />
       ) : (
         <PortfolioView
@@ -68,6 +77,7 @@ export default function App() {
           onOpenArchitecture={() => setIsArchitectureOpen(true)}
           onOpenMathDeepDive={() => setIsMathDeepDiveOpen(true)}
           onOpenSubscribe={() => setIsSubscribeOpen(true)}
+          onOpenDiscoverability={() => setIsDiscoverabilityOpen(true)}
         />
       )}
 
@@ -77,9 +87,16 @@ export default function App() {
         onOpenBenchmarks={() => setIsBenchmarkOpen(true)}
         onOpenArchitecture={() => setIsArchitectureOpen(true)}
         onOpenSubscribe={() => setIsSubscribeOpen(true)}
+        onOpenDiscoverability={() => setIsDiscoverabilityOpen(true)}
       />
 
-      {/* Global Academic Modals */}
+      {/* Global Academic & Discoverability Modals */}
+      <DiscoverabilityModal
+        isOpen={isDiscoverabilityOpen}
+        onClose={() => setIsDiscoverabilityOpen(false)}
+        activePublication={activeView === 'reader' ? selectedPublication : null}
+      />
+
       <MathDeepDiveModal
         isOpen={isMathDeepDiveOpen}
         onClose={() => setIsMathDeepDiveOpen(false)}
@@ -102,3 +119,4 @@ export default function App() {
     </div>
   );
 }
+

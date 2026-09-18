@@ -6,13 +6,15 @@ interface FooterProps {
   onOpenBenchmarks: () => void;
   onOpenArchitecture: () => void;
   onOpenSubscribe: () => void;
+  onOpenDiscoverability: () => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({
   onOpenMathDeepDive,
   onOpenBenchmarks,
   onOpenArchitecture,
-  onOpenSubscribe
+  onOpenSubscribe,
+  onOpenDiscoverability
 }) => {
   return (
     <footer className="bg-[#0B192C] text-slate-300 border-t border-slate-800 py-12 text-xs">
@@ -97,6 +99,15 @@ export const Footer: React.FC<FooterProps> = ({
             <ul className="space-y-1.5 text-slate-400">
               <li>
                 <button
+                  onClick={onOpenDiscoverability}
+                  className="hover:text-amber-300 transition-colors text-left font-semibold text-emerald-300 flex items-center gap-1"
+                >
+                  <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
+                  <span>AI Citations, SEO & /llms.txt</span>
+                </button>
+              </li>
+              <li>
+                <button
                   onClick={onOpenMathDeepDive}
                   className="hover:text-amber-300 transition-colors text-left font-medium text-amber-200/90 flex items-center gap-1"
                 >
@@ -132,6 +143,30 @@ export const Footer: React.FC<FooterProps> = ({
                 </button>
               </li>
             </ul>
+          </div>
+        </div>
+
+        {/* Machine & AI Discovery Endpoints */}
+        <div className="pt-6 pb-4 border-b border-slate-800/80 flex flex-wrap items-center justify-between gap-3 text-[11px] text-slate-400">
+          <div className="flex items-center gap-2">
+            <span className="font-mono text-amber-400 font-bold">AI & Agent Ingestion Endpoints:</span>
+          </div>
+          <div className="flex flex-wrap items-center gap-3 font-mono">
+            <a href="/llms.txt" target="_blank" rel="noreferrer" className="text-slate-300 hover:text-amber-300 underline">
+              /llms.txt
+            </a>
+            <span>•</span>
+            <a href="/sitemap.xml" target="_blank" rel="noreferrer" className="text-slate-300 hover:text-amber-300 underline">
+              /sitemap.xml
+            </a>
+            <span>•</span>
+            <a href="/citation.cff" target="_blank" rel="noreferrer" className="text-slate-300 hover:text-amber-300 underline">
+              /citation.cff
+            </a>
+            <span>•</span>
+            <a href="/robots.txt" target="_blank" rel="noreferrer" className="text-slate-300 hover:text-amber-300 underline">
+              /robots.txt
+            </a>
           </div>
         </div>
 

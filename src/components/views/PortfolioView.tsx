@@ -17,6 +17,7 @@ interface PortfolioViewProps {
   onOpenArchitecture: () => void;
   onOpenMathDeepDive: () => void;
   onOpenSubscribe: () => void;
+  onOpenDiscoverability: () => void;
 }
 
 export const PortfolioView: React.FC<PortfolioViewProps> = ({
@@ -24,7 +25,8 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
   onOpenBenchmarks,
   onOpenArchitecture,
   onOpenMathDeepDive,
-  onOpenSubscribe
+  onOpenSubscribe,
+  onOpenDiscoverability
 }) => {
   // Search & Filter State
   const [searchQuery, setSearchQuery] = useState('');
@@ -74,24 +76,34 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
         onOpenArchitecture={onOpenArchitecture}
         onOpenMathDeepDive={onOpenMathDeepDive}
         onOpenSubscribe={onOpenSubscribe}
+        onOpenDiscoverability={onOpenDiscoverability}
       />
 
       {/* Benchmark Motivation Ribbon */}
       <section className="bg-amber-50/70 border-b border-amber-200/80 py-3 px-4 sm:px-8">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
           <div className="flex items-center gap-2 text-amber-950">
-            <span className="w-2 h-2 rounded-full bg-amber-600 animate-pulse shrink-0"></span>
+            <span className="w-2 h-2 rounded-full bg-emerald-600 animate-pulse shrink-0"></span>
             <span>
-              <strong>Academic Publication Standards:</strong> Architecture rigorously modeled after the top 10 peer-reviewed scientific publication platforms (Nature, Science, Distill.pub, Our World in Data, arXiv, Cell, NobelPrize.org, IEEE Xplore, PLOS ONE, and Semantic Scholar).
+              <strong>Academic Publication Standards & AI Discoverability:</strong> Modeled after the top 10 peer-reviewed scientific journals with full <strong>GEO / AIO / AEI / Highwire Press / Schema.org</strong> machine-readability and Vercel hosting readiness.
             </span>
           </div>
-          <button
-            onClick={onOpenBenchmarks}
-            className="font-bold text-amber-900 hover:text-amber-950 underline flex items-center gap-1 shrink-0"
-          >
-            <span>View Dossier</span>
-            <ChevronRight className="w-3.5 h-3.5" />
-          </button>
+          <div className="flex items-center gap-3 shrink-0">
+            <button
+              onClick={onOpenDiscoverability}
+              className="font-bold text-emerald-900 hover:text-emerald-950 underline flex items-center gap-1"
+            >
+              <span>AI Discoverability (100%)</span>
+            </button>
+            <span className="text-amber-300">•</span>
+            <button
+              onClick={onOpenBenchmarks}
+              className="font-bold text-amber-900 hover:text-amber-950 underline flex items-center gap-1"
+            >
+              <span>Top 10 Dossier</span>
+              <ChevronRight className="w-3.5 h-3.5" />
+            </button>
+          </div>
         </div>
       </section>
 

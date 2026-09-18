@@ -1,0 +1,16 @@
+{
+  "name": "Aarti Sri Ravikumar | Academic Publications Archive",
+  "short_name": "ASR Publications",
+  "description": "The official academic portfolio, publications, and computational research archive of Aarti Sri Ravikumar.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FAF8F5",
+  "theme_color": "#0B192C",
+  "icons": [
+    {
+      "src": "/assets/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

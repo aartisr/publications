@@ -6,6 +6,7 @@ interface NavbarProps {
   onOpenArchitecture: () => void;
   onOpenMathDeepDive: () => void;
   onOpenSubscribe: () => void;
+  onOpenDiscoverability: () => void;
   activeView: 'portfolio' | 'reader';
   onToggleView: (view: 'portfolio' | 'reader') => void;
 }
@@ -15,6 +16,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenArchitecture,
   onOpenMathDeepDive,
   onOpenSubscribe,
+  onOpenDiscoverability,
   activeView,
   onToggleView
 }) => {
@@ -46,6 +48,17 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Navigation & Action Triggers */}
           <div className="flex items-center gap-2 sm:gap-3">
+            {/* Discoverability / AI Citations & GEO Button */}
+            <button
+              onClick={onOpenDiscoverability}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 text-emerald-900 border border-emerald-300 text-xs font-bold transition-all shadow-2xs"
+              title="Inspect automated SEO, GEO, AIO, Highwire Press, and /llms.txt AI citation readiness"
+            >
+              <Sparkles className="w-3.5 h-3.5 text-emerald-700" />
+              <span className="hidden md:inline">AI & Discoverability</span>
+              <span className="md:hidden">SEO/AI</span>
+            </button>
+
             {/* Math Deep Dive Theoretical Defense Button */}
             <button
               onClick={onOpenMathDeepDive}

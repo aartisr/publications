@@ -6,13 +6,15 @@ interface AuthorProfileBannerProps {
   onOpenArchitecture: () => void;
   onOpenMathDeepDive: () => void;
   onOpenSubscribe: () => void;
+  onOpenDiscoverability: () => void;
 }
 
 export const AuthorProfileBanner: React.FC<AuthorProfileBannerProps> = ({
   onOpenBenchmarks,
   onOpenArchitecture,
   onOpenMathDeepDive,
-  onOpenSubscribe
+  onOpenSubscribe,
+  onOpenDiscoverability
 }) => {
   return (
     <section className="bg-gradient-to-b from-[#FAF8F5] via-white to-[#FAF8F5] border-b border-[#E2DCD5] py-10 sm:py-14">
@@ -46,6 +48,14 @@ export const AuthorProfileBanner: React.FC<AuthorProfileBannerProps> = ({
 
             {/* Academic Badges & Direct Actions */}
             <div className="flex flex-wrap items-center gap-3 mt-6 pt-2">
+              <button
+                onClick={onOpenDiscoverability}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-950 border border-emerald-400 text-xs font-bold shadow-xs transition-all"
+              >
+                <Sparkles className="w-4 h-4 text-emerald-700" />
+                <span>AI Citations & SEO (100%)</span>
+              </button>
+
               <button
                 onClick={onOpenMathDeepDive}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-950 border border-amber-400/80 text-xs font-bold shadow-xs transition-all"

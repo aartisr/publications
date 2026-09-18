@@ -32,13 +32,15 @@ interface ReadingInterfaceProps {
   onBack: () => void;
   onOpenArchitecture: () => void;
   onOpenMathDeepDive?: () => void;
+  onOpenDiscoverability?: () => void;
 }
 
 export const ReadingInterface: React.FC<ReadingInterfaceProps> = ({
   publication,
   onBack,
   onOpenArchitecture,
-  onOpenMathDeepDive
+  onOpenMathDeepDive,
+  onOpenDiscoverability
 }) => {
   const [fontSize, setFontSize] = useState<'normal' | 'large' | 'xl'>('normal');
   const [fontSerif, setFontSerif] = useState<boolean>(true);
@@ -179,6 +181,18 @@ export const ReadingInterface: React.FC<ReadingInterfaceProps> = ({
                 A++
               </button>
             </div>
+
+            {/* Discoverability & AI Metadata Shortcut */}
+            {onOpenDiscoverability && (
+              <button
+                onClick={onOpenDiscoverability}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-950 text-xs font-bold transition-colors shadow-2xs"
+                title="Inspect AI Citations, Schema.org JSON-LD, and Highwire Press tags for this publication"
+              >
+                <Sparkles className="w-3.5 h-3.5 text-emerald-700" />
+                <span className="hidden md:inline">AI Citations & SEO</span>
+              </button>
+            )}
 
             {/* Math Deep Dive Shortcut */}
             {onOpenMathDeepDive && (
