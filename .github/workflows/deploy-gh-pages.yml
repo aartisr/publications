@@ -35,6 +35,8 @@ jobs:
         run: npm ci --legacy-peer-deps
 
       - name: Build Application
+        env:
+          GITHUB_PAGES: 'true'
         run: npm run build
 
       - name: Copy Docs & Wiki Pages to Dist
