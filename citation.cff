@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use or reference this research, open-source software, or mathematical formulations, please cite as below."
+title: "Democratizing Urban Heat Resilience & Planetary Resilience Computational Archive"
+authors:
+  - family-names: "Ravikumar"
+    given-names: "Aarti Sri"
+    orcid: "https://orcid.org/0009-0004-8921-9302"
+    affiliation: "ai-aarti.com & PCSS-II"
+    website: "https://ai-aarti.com"
+keywords:
+  - "urban heat island"
+  - "spectral graph theory"
+  - "Cheeger inequality"
+  - "Laplacian matrices"
+  - "percolation theory"
+  - "remote sensing"
+  - "Landsat 9"
+  - "Sentinel-2"
+  - "GMRF"
+  - "environmental justice"
+  - "CDC Social Vulnerability Index"
+license: "CC-BY-4.0"
+repository-code: "https://github.com/aartisr/publications"
+url: "https://ai-aarti.com"
+doi: "10.5281/zenodo.10892341"
+date-released: 2024-03-15

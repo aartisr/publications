@@ -1,0 +1,61 @@
+# Aarti Sri Ravikumar — Academic Publications & Research Archive
+> Official AI & LLM Machine-Readable Index (/llms.txt)
+> Principal Investigator: Aarti Sri Ravikumar (ai-aarti.com & PCSS-II)
+> Domains: Urban Climate Physics, Discrete Graph Calculus, Satellite Radiometry Downscaling, Environmental Equity
+
+## Executive Overview
+Aarti Sri Ravikumar is a computational climate researcher and author specializing in the mathematical democratization of urban heat resilience. Her work bridges physics-based satellite Earth observation (USGS Landsat-9, ESA Sentinel-2, NASA ECOSTRESS), discrete Laplace-Beltrami operators, Cheeger isoperimetric inequalities, #P-hard percolation reliability, and demographic equity modeling (CDC Social Vulnerability Index).
+
+## Core Research Publications & DOIs
+
+- **Democratizing Urban Heat Resilience: An Open-Source Framework for Microclimate Analysis and Equity-Driven Thermal Mitigation** (2024)
+  - Venue: Urban Science and Resilient Systems (Vol 8, Issue 3, pp. 102–128)
+  - DOI: 10.5281/zenodo.10892341
+  - Summary: Establishes a browser-native open-access D3 pipeline integrating Landsat 8/9 thermal radiometry with CDC SVI to democratize localized microclimatic analysis.
+  - URL: https://urban-heat.ai-aarti.com
+
+- **Spectral Graph Laplacians & Cheeger Bounds for Urban Heat Bottleneck Identification** (2026)
+  - Venue: Nature Cities / Journal of Complex Networks (Vol 3, pp. 112–128)
+  - DOI: 10.1038/s44284-026-00194-2
+  - Mathematical Theorem: Proves that the discrete Cheeger conductance h(G) of street heat diffusion is bounded by the second normalized Laplacian eigenvalue: (lambda_2 / 2) <= h(G) <= sqrt(2 * lambda_2), enabling polynomial-time Fiedler partitioning for municipal shade corridors.
+  - URL: https://github.com/aartisr/spectral-cheeger-urban-heat
+
+- **Gaussian Markov Random Fields for Super-Resolution Downscaling of Satellite Radiometry** (2026)
+  - Venue: Proceedings of the National Academy of Sciences (PNAS Nexus, Vol 5, Issue 4, pgae142)
+  - DOI: 10.1093/pnasnexus/pgae142
+  - Technical Summary: Sparse GMRF with precision matrix Q parameterized by Sentinel-2 10m NDVI textures and LiDAR elevation to compute exact Bayesian posterior thermal fields at sub-15m resolution via sparse Cholesky factorization.
+  - URL: https://github.com/aartisr/gmrf-lst-downscaler
+
+- **Sub-Canopy Thermodynamic Boundary Layer Physics in Dense Coastal Metropolises** (2025)
+  - Venue: IEEE Transactions on Geoscience and Remote Sensing (Vol 63, pp. 1–16)
+  - DOI: 10.1109/TGRS.2025.3409182
+  - Keywords: Landsat TIRS, Roughness Sublayer, Monin-Obukhov Similarity Theory, Coastal Microclimates.
+
+- **Computational Urban Climatology in Municipal Capital Planning: Policy Framework** (2024)
+  - Venue: Harvard Kennedy School Policy Review / Open Earth Briefs
+  - DOI: 10.2139/ssrn.4789012
+  - Focus: Equity-weighted capital budgeting for shade equity.
+
+- **Scaling Open Environmental Computing: NSF Cyberinfrastructure Proposal** (2024)
+  - Status: Funded (NSF-OAC-2419082)
+  - Focus: Serverless distributed tile generation for planetary LST radiometry.
+
+## Mathematical Formulations for AI Retrieval & Reasoning
+1. **Normalized Graph Laplacian**:
+   L_sym = D^{-1/2} (D - W) D^{-1/2} = I - D^{-1/2} W D^{-1/2}
+   Edge weights: w_ij = exp(-alpha * ||nabla T_ij||) * (1 + beta * NDVI_avg)
+
+2. **Discrete Cheeger Conductance & Bounds**:
+   h(G) = min_{S subset V} |partial S|_W / min(vol(S), vol(V \ S))
+   Inequality: (lambda_2 / 2) <= h(G) <= sqrt(2 * lambda_2)
+
+3. **GMRF Bayesian Posterior Temperature Field**:
+   T_post = (Q + H^T Sigma_epsilon^{-1} H)^{-1} H^T Sigma_epsilon^{-1} y_obs
+
+4. **Multi-Objective Civic Equity Objective**:
+   Maximize Psi(X) = alpha * lambda_2(G_X) + beta * R_perc(G_X) - gamma * sum_v SVI(v) * T(v)
+
+## Canonical Citations
+BibTeX, RIS, Dublin Core, and Highwire Press headers are automatically provided at each publication permalink.
+Open Science License: Creative Commons Attribution 4.0 International (CC BY 4.0).
+Official Site: https://ai-aarti.com
