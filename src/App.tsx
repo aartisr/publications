@@ -14,6 +14,7 @@ import { DownloadMonographModal } from './components/DownloadMonographModal';
 import { AiScholarAssistantModal } from './components/AiScholarAssistantModal';
 import { SEOHead } from './components/seo/SEOHead';
 import { publicationService } from './services/publicationService';
+import { telemetryService } from './services/telemetryService';
 import { Publication } from './types';
 
 /**
@@ -44,6 +45,14 @@ export default function App() {
   const [globalCommunityInitialTab, setGlobalCommunityInitialTab] = useState<
     'world-impact' | 'translations' | 'action-kit' | 'sdgs' | 'amplifier'
   >('world-impact');
+
+  useEffect(() => {
+    const pageTitle =
+      activeView === 'reader' && selectedPublication
+        ? selectedPublication.title
+        : 'Aarti Sri Ravikumar – Open Science Archives';
+    telemetryService.trackPageView(window.location.pathname, pageTitle);
+  }, [activeView, selectedPublication]);
 
   const handleOpenGlobalCommunity = (
     tab: 'world-impact' | 'translations' | 'action-kit' | 'sdgs' | 'amplifier' = 'world-impact'

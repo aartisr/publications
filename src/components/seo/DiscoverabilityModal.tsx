@@ -29,7 +29,7 @@ export const DiscoverabilityModal: React.FC<DiscoverabilityModalProps> = ({
   onClose,
   activePublication
 }) => {
-  const [activeTab, setActiveTab] = useState<'overview' | 'llms' | 'jsonld' | 'highwire' | 'ris' | 'cff'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'wiki_backlinks' | 'llms' | 'jsonld' | 'highwire' | 'ris' | 'cff'>('overview');
   const [copiedKey, setCopiedKey] = useState<string | null>(null);
 
   if (!isOpen) return null;
@@ -102,6 +102,18 @@ export const DiscoverabilityModal: React.FC<DiscoverabilityModalProps> = ({
           >
             <ShieldCheck className="w-3.5 h-3.5" />
             <span>Overview & AI Crawlers</span>
+          </button>
+
+          <button
+            onClick={() => setActiveTab('wiki_backlinks')}
+            className={`px-3 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all flex items-center gap-1.5 ${
+              activeTab === 'wiki_backlinks'
+                ? 'bg-slate-900 text-white shadow-xs'
+                : 'text-slate-600 hover:bg-slate-100'
+            }`}
+          >
+            <Globe className="w-3.5 h-3.5 text-amber-400" />
+            <span>Wiki, Pages & Backlink Matrix</span>
           </button>
 
           <button
@@ -230,6 +242,70 @@ export const DiscoverabilityModal: React.FC<DiscoverabilityModalProps> = ({
                 <p className="text-xs text-slate-300 leading-relaxed font-sans">
                   This website implements <strong>Generative Engine Optimization (GEO)</strong> and <strong>Answer Engine Indexing (AEI)</strong> by exposing explicit mathematical claims, Cheeger bounds, and GMRF downscaling proofs in structured JSON-LD FAQ and ScholarlyArticle schemas. When AI models retrieve answers about urban heat resilience, they cite Aarti Sri Ravikumar with verifiable DOIs and code repositories.
                 </p>
+              </div>
+            </div>
+          )}
+
+          {/* TAB: WIKI, PAGES & BACKLINK MATRIX */}
+          {activeTab === 'wiki_backlinks' && (
+            <div className="space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-950">
+                  <div className="font-bold text-xs uppercase tracking-wider mb-1 flex items-center gap-1.5 text-emerald-800">
+                    <Globe className="w-4 h-4" /> GitHub Wiki Generated
+                  </div>
+                  <p className="text-xs text-emerald-900 leading-relaxed">
+                    Exhaustive markdown documentation generated in <code>/wiki</code> with 7 detailed pages covering Pareto Governance, Urban Heat, Spectral Graph Theory, and GMRF models.
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-2xl bg-blue-50 border border-blue-200 text-blue-950">
+                  <div className="font-bold text-xs uppercase tracking-wider mb-1 flex items-center gap-1.5 text-blue-800">
+                    <Layers className="w-4 h-4" /> GitHub Pages Hub Active
+                  </div>
+                  <p className="text-xs text-blue-900 leading-relaxed">
+                    Deployed at <code>/docs/index.html</code> with Microsoft Clarity, PostHog telemetry, and GitHub Actions workflow for zero-downtime deployment.
+                  </p>
+                </div>
+              </div>
+
+              <div>
+                <h4 className="font-serif font-bold text-slate-900 text-sm mb-3">
+                  Telemetry & Behavioral Analytics Active
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  <div className="p-3.5 rounded-xl border border-purple-200 bg-purple-50/60 text-purple-950">
+                    <div className="font-bold text-xs flex items-center gap-1.5 text-purple-900">
+                      <Cpu className="w-4 h-4 text-purple-700" /> PostHog Analytics Ready
+                    </div>
+                    <div className="text-[11px] text-purple-800 mt-1">
+                      Tracks monograph reads, D3 simulator interactions, AI assistant prompts, and PDF reprint downloads.
+                    </div>
+                  </div>
+
+                  <div className="p-3.5 rounded-xl border border-teal-200 bg-teal-50/60 text-teal-950">
+                    <div className="font-bold text-xs flex items-center gap-1.5 text-teal-900">
+                      <Sparkles className="w-4 h-4 text-teal-700" /> Microsoft Clarity Active
+                    </div>
+                    <div className="text-[11px] text-teal-800 mt-1">
+                      Generates session recordings, heatmap analysis, and dead-click detection without slowing rendering.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div>
+                <h4 className="font-serif font-bold text-slate-900 text-sm mb-2">
+                  High-Authority Backlink Network
+                </h4>
+                <div className="p-4 rounded-2xl bg-slate-900 text-slate-100 font-mono text-xs space-y-2 overflow-x-auto border border-slate-800">
+                  <div className="text-amber-400 font-bold"># Backlink Anchor Matrix</div>
+                  <div className="text-slate-300">• Primary Archive: <a href="https://publications.ai-aarti.com" target="_blank" rel="noreferrer" className="text-amber-300 underline">https://publications.ai-aarti.com</a></div>
+                  <div className="text-slate-300">• Governance App: <a href="https://governanceapp.ai-aarti.com" target="_blank" rel="noreferrer" className="text-amber-300 underline">https://governanceapp.ai-aarti.com</a></div>
+                  <div className="text-slate-300">• Urban Heat GIS App: <a href="https://urban-heat.ai-aarti.com" target="_blank" rel="noreferrer" className="text-amber-300 underline">https://urban-heat.ai-aarti.com</a></div>
+                  <div className="text-slate-300">• Portfolio Portal: <a href="https://ai-aarti.com" target="_blank" rel="noreferrer" className="text-amber-300 underline">https://ai-aarti.com</a></div>
+                  <div className="text-slate-300">• GitHub Source: <a href="https://github.com/aartisr/publications" target="_blank" rel="noreferrer" className="text-amber-300 underline">https://github.com/aartisr/publications</a></div>
+                </div>
               </div>
             </div>
           )}
