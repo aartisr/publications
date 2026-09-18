@@ -19,6 +19,7 @@ import {
 import { Publication } from '../types';
 import { PublicationSwitcher } from './navbar/PublicationSwitcher';
 import { LiveAppsMenu } from './navbar/LiveAppsMenu';
+import { Logo } from './Logo';
 
 interface NavbarProps {
   publications: Publication[];
@@ -93,9 +94,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => onToggleView('portfolio')}
               className="text-left group flex items-center gap-2.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded-lg p-1"
             >
-              <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#0B192C] text-amber-400 flex items-center justify-center font-serif font-bold text-sm sm:text-base border border-amber-500/40 shadow-xs transition-transform group-hover:scale-105 shrink-0">
-                ASR
-              </span>
+              <Logo size="md" className="shrink-0" />
               <div>
                 <h1 className="font-serif font-bold text-base sm:text-lg tracking-tight text-slate-900 group-hover:text-amber-900 transition-colors">
                   Aarti Sri Ravikumar

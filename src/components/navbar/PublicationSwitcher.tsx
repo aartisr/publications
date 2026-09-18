@@ -150,9 +150,19 @@ export const PublicationSwitcher: React.FC<PublicationSwitcherProps> = ({
                         {/* Action buttons inside card */}
                         <div className="flex flex-wrap items-center justify-between gap-2 pt-1 border-t border-slate-200/60 text-[11px]">
                           <div className="flex items-center gap-2 text-slate-500 font-mono text-[10px]">
-                            <span>{pub.metrics.citations} Citations</span>
-                            <span>•</span>
-                            <span>{pub.metrics.downloads.toLocaleString()} Downloads</span>
+                            {pub.openScience.hasCode && <span className="text-emerald-700 font-semibold">Code</span>}
+                            {pub.openScience.hasData && (
+                              <>
+                                <span className="text-slate-300">•</span>
+                                <span className="text-blue-700 font-semibold">Data</span>
+                              </>
+                            )}
+                            {pub.openScience.hasInteractiveSim && (
+                              <>
+                                <span className="text-slate-300">•</span>
+                                <span className="text-purple-700 font-semibold">Simulation</span>
+                              </>
+                            )}
                           </div>
 
                           <div className="flex items-center gap-2">

@@ -1,5 +1,6 @@
 import React from 'react';
 import { Award, BookOpen, ExternalLink, GitBranch, Layers, ShieldCheck, Sparkles, Globe, Mail, FileText, Sigma, Heart } from 'lucide-react';
+import { publicationService } from '../services/publicationService';
 
 interface AuthorProfileBannerProps {
   onOpenBenchmarks: () => void;
@@ -18,6 +19,9 @@ export const AuthorProfileBanner: React.FC<AuthorProfileBannerProps> = ({
   onOpenDiscoverability,
   onOpenGlobalCommunity
 }) => {
+  const metrics = publicationService.getMetrics();
+  const maxAltmetric = Math.max(...publicationService.getAll().map(p => p.metrics?.altmetricScore || 0));
+
   return (
     <section className="bg-gradient-to-b from-[#FAF8F5] via-white to-[#FAF8F5] border-b border-[#E2DCD5] py-10 sm:py-14">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -112,29 +116,29 @@ export const AuthorProfileBanner: React.FC<AuthorProfileBannerProps> = ({
           {/* Academic Impact Metrics Box */}
           <div className="w-full lg:w-80 bg-white border border-[#E2DCD5] rounded-2xl p-5 shadow-xs shrink-0">
             <div className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold border-b border-slate-100 pb-2 flex items-center justify-between">
-              <span>Research Impact Metrics</span>
+              <span>Open Science Metrics</span>
               <span className="text-emerald-700 font-semibold">2026 Archive</span>
             </div>
 
             <div className="grid grid-cols-2 gap-3 mt-3">
               <div className="p-3 bg-[#FAF8F5] rounded-xl border border-slate-200/80 text-center">
-                <div className="text-2xl font-serif font-bold text-slate-900">5</div>
-                <div className="text-[11px] text-slate-500 uppercase tracking-wider mt-0.5">Research Works</div>
+                <div className="text-2xl font-serif font-bold text-slate-900">{metrics.totalPublications}</div>
+                <div className="text-[11px] text-slate-500 uppercase tracking-wider mt-0.5">Active Works</div>
               </div>
 
               <div className="p-3 bg-[#FAF8F5] rounded-xl border border-slate-200/80 text-center">
-                <div className="text-2xl font-serif font-bold text-amber-800">108+</div>
-                <div className="text-[11px] text-slate-500 uppercase tracking-wider mt-0.5">Academic Citations</div>
+                <div className="text-2xl font-serif font-bold text-amber-800">{metrics.totalGitHubRepos}</div>
+                <div className="text-[11px] text-slate-500 uppercase tracking-wider mt-0.5">GitHub Repos</div>
               </div>
 
               <div className="p-3 bg-[#FAF8F5] rounded-xl border border-slate-200/80 text-center">
-                <div className="text-2xl font-serif font-bold text-slate-900">28k+</div>
-                <div className="text-[11px] text-slate-500 uppercase tracking-wider mt-0.5">Reprint Downloads</div>
+                <div className="text-2xl font-serif font-bold text-slate-900">{metrics.totalD3Simulators}</div>
+                <div className="text-[11px] text-slate-500 uppercase tracking-wider mt-0.5">D3 Simulators</div>
               </div>
 
               <div className="p-3 bg-[#FAF8F5] rounded-xl border border-slate-200/80 text-center">
-                <div className="text-2xl font-serif font-bold text-purple-700">318</div>
-                <div className="text-[11px] text-slate-500 uppercase tracking-wider mt-0.5">Altmetric Top 1%</div>
+                <div className="text-2xl font-serif font-bold text-purple-700">10</div>
+                <div className="text-[11px] text-slate-500 uppercase tracking-wider mt-0.5">Languages</div>
               </div>
             </div>
 

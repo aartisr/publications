@@ -120,19 +120,30 @@ export const PublicationCard: React.FC<PublicationCardProps> = ({ publication, o
         ))}
       </div>
 
-      {/* Academic Impact Metrics Bar (Nature / Science motivated) */}
+      {/* Open-Science Evidence & Features Bar */}
       <div className="mt-5 pt-4 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4 text-xs">
-        <div className="flex items-center gap-4 text-slate-600">
-          <div className="flex items-center gap-1 font-mono">
-            <Quote className="w-3.5 h-3.5 text-amber-700" />
-            <span><strong>{publication.metrics.citations}</strong> Citations</span>
-          </div>
-          <div className="flex items-center gap-1 font-mono">
-            <Download className="w-3.5 h-3.5 text-slate-500" />
-            <span><strong>{publication.metrics.downloads}</strong> Downloads</span>
-          </div>
-          <div className="flex items-center gap-1 px-2 py-0.5 rounded bg-blue-50 text-blue-800 border border-blue-200 font-semibold font-mono">
-            <span>Altmetric {publication.metrics.altmetricScore}</span>
+        <div className="flex flex-wrap items-center gap-3 text-slate-600">
+          {publication.openScience.hasCode && (
+            <div className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-emerald-50 text-emerald-800 border border-emerald-200 font-semibold font-mono">
+              <GitBranch className="w-3 h-3 text-emerald-700" />
+              <span>Open Code</span>
+            </div>
+          )}
+          {publication.openScience.hasData && (
+            <div className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-blue-50 text-blue-800 border border-blue-200 font-semibold font-mono">
+              <FileText className="w-3 h-3 text-blue-700" />
+              <span>Open Data</span>
+            </div>
+          )}
+          {publication.openScience.hasInteractiveSim && (
+            <div className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-purple-50 text-purple-800 border border-purple-200 font-semibold font-mono">
+              <Sparkles className="w-3 h-3 text-purple-700" />
+              <span>Interactive Sim</span>
+            </div>
+          )}
+          <div className="flex items-center gap-1 px-2 py-0.5 rounded-md bg-amber-50 text-amber-800 border border-amber-200 font-semibold font-mono">
+            <BookOpen className="w-3 h-3 text-amber-700" />
+            <span>10 Languages</span>
           </div>
         </div>
 

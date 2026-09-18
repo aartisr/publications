@@ -21,6 +21,8 @@ export interface GlobalResearchMetrics {
   openCodePercent: number;
   peerReviewedCount: number;
   activeGrantCount: number;
+  totalGitHubRepos: number;
+  totalD3Simulators: number;
 }
 
 /**
@@ -124,7 +126,9 @@ class PublicationService {
         totalViews: 0,
         openCodePercent: 100,
         peerReviewedCount: 0,
-        activeGrantCount: 0
+        activeGrantCount: 0,
+        totalGitHubRepos: 0,
+        totalD3Simulators: 0
       };
     }
 
@@ -134,6 +138,8 @@ class PublicationService {
     const openCodeCount = this.publications.filter((p) => p.openScience?.hasCode).length;
     const peerReviewedCount = this.publications.filter((p) => p.openScience?.peerReviewed).length;
     const activeGrantCount = this.publications.filter((p) => p.type === 'grant_proposal').length;
+    const totalGitHubRepos = this.publications.filter((p) => p.openScience?.hasCode || p.openScience?.githubUrl).length;
+    const totalD3Simulators = this.publications.filter((p) => p.openScience?.hasInteractiveSim).length;
 
     return {
       totalPublications: total,
@@ -142,7 +148,9 @@ class PublicationService {
       totalViews: views,
       openCodePercent: Math.round((openCodeCount / total) * 100),
       peerReviewedCount,
-      activeGrantCount
+      activeGrantCount,
+      totalGitHubRepos,
+      totalD3Simulators
     };
   }
 

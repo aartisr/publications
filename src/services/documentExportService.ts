@@ -34,10 +34,10 @@ url: "${publication.openScience?.liveUrl || 'https://urban-heat.ai-aarti.com/'}"
 github: "${publication.openScience?.githubUrl || 'https://github.com/aartisr/urban-heat-democratization'}"
 topics: [${publication.topics.map((t) => `"${t}"`).join(', ')}]
 keywords: [${publication.keywords.map((k) => `"${k}"`).join(', ')}]
-metrics:
-  citations: ${publication.metrics.citations}
-  downloads: ${publication.metrics.downloads}
-  altmetric: ${publication.metrics.altmetricScore}
+features:
+  hasCode: ${publication.openScience.hasCode}
+  hasData: ${publication.openScience.hasData}
+  hasInteractiveSim: ${publication.openScience.hasInteractiveSim}
 ---
 
 # ${publication.title}
