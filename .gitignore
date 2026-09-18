@@ -1,9 +1,98 @@
+# ==========================================
+# Dependencies
+# ==========================================
 node_modules/
-build/
-dist/
-coverage/
-.DS_Store
+/jspm_packages/
+web_modules/
+
+# ==========================================
+# Build Outputs & Production Artifacts
+# ==========================================
+/dist/
+/dist-ssr/
+/build/
+/out/
+/.next/
+/.nuxt/
+/bin/
+/obj/
+
+# ==========================================
+# Environment Variables & Secrets (NEVER COMMIT SECRETS)
+# ==========================================
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.env
+!/README.md
+!/.env.example
+
+# ==========================================
+# Logs, Telemetry & Debugging
+# ==========================================
 *.log
-.env*
-!.env.example
-temp_clones/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.pnpm-debug.log*
+
+# ==========================================
+# OS & System Files
+# ==========================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ==========================================
+# IDEs, Editors & Settings
+# ==========================================
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# ==========================================
+# Testing & Coverage
+# ==========================================
+/coverage/
+/.nyc_output/
+.jest/
+*.lcov
+
+# ==========================================
+# Package Manager Caches & Engine Lockfiles
+# ==========================================
+.npm/
+.eslintcache
+.stylelintcache
+.vite/
+.parcel-cache/
+.turbo/
+bun.lockb
+
+# ==========================================
+# Project-Specific Temporary Files
+# ==========================================
+/temp_clones/
+/tmp/
+/.tmp/
+
