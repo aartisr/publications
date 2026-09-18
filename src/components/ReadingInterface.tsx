@@ -5,6 +5,9 @@ import { ThermalScatterChart } from './charts/ThermalScatterChart';
 import { MetropolitanHeatMap } from './charts/MetropolitanHeatMap';
 import { MitigationSimulator } from './charts/MitigationSimulator';
 import { GoogleEarthGISExplorer } from './GoogleEarthGISExplorer';
+import { MonographAudioPlayer } from './MonographAudioPlayer';
+import { PeerReviewModal } from './PeerReviewModal';
+import { InteractiveMathSandbox } from './InteractiveMathSandbox';
 import { MathFormula } from './MathFormula';
 import {
   ArrowLeft,
@@ -30,7 +33,10 @@ import {
   Copy,
   Globe,
   Heart,
-  Printer
+  Printer,
+  Headphones,
+  UserCheck,
+  Calculator
 } from 'lucide-react';
 
 interface ReadingInterfaceProps {
@@ -58,6 +64,7 @@ export const ReadingInterface: React.FC<ReadingInterfaceProps> = ({
   const [copiedBibtex, setCopiedBibtex] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
   const [showBibtexDrawer, setShowBibtexDrawer] = useState(false);
+  const [isPeerReviewOpen, setIsPeerReviewOpen] = useState(false);
 
   // Derive sections or provide standard scholarly fallback sections
   const sections = publication.fullContent?.sections || [
@@ -216,6 +223,16 @@ export const ReadingInterface: React.FC<ReadingInterfaceProps> = ({
                 <span>AI / SEO</span>
               </button>
             )}
+
+            {/* Peer Review Button */}
+            <button
+              onClick={() => setIsPeerReviewOpen(true)}
+              className="hidden lg:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-100 hover:bg-emerald-200 border border-emerald-300 text-emerald-950 text-xs font-bold transition-colors shadow-2xs"
+              title="Inspect Double-Blind Peer Review Reports & Author Rebuttals"
+            >
+              <UserCheck className="w-3.5 h-3.5 text-emerald-700" />
+              <span>Peer Review</span>
+            </button>
 
             {/* Math Deep Dive Shortcut */}
             {onOpenMathDeepDive && (
@@ -395,6 +412,15 @@ export const ReadingInterface: React.FC<ReadingInterfaceProps> = ({
             </p>
           </div>
         )}
+
+        {/* Executive Audio Briefing Player */}
+        <MonographAudioPlayer
+          publication={publication}
+          onJumpToSection={(secId) => {
+            const el = document.getElementById(secId);
+            if (el) el.scrollIntoView({ behavior: 'smooth' });
+          }}
+        />
 
         {/* For the Love of Community: Multilingual & Action Hub Callout */}
         <div className="mt-4 p-4 bg-gradient-to-r from-teal-900 via-emerald-900 to-slate-900 text-white rounded-xl border border-teal-700/60 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
@@ -595,7 +621,8 @@ export const ReadingInterface: React.FC<ReadingInterfaceProps> = ({
                   )}
 
                   {sec.hasD3Chart === 'simulator' && (
-                    <div className="my-8">
+                    <div className="my-8 space-y-8">
+                      <InteractiveMathSandbox />
                       <MitigationSimulator />
                     </div>
                   )}
@@ -657,6 +684,13 @@ export const ReadingInterface: React.FC<ReadingInterfaceProps> = ({
           </main>
         </div>
       </div>
+
+      {/* Peer Review Modal */}
+      <PeerReviewModal
+        isOpen={isPeerReviewOpen}
+        onClose={() => setIsPeerReviewOpen(false)}
+        publication={publication}
+      />
     </div>
   );
 };
