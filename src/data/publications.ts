@@ -88,7 +88,7 @@ export const PUBLICATIONS_DATA: Publication[] = [
               <li><strong>Layer 3 — ECOSTRESS ISS Diurnal Nocturnal Heat Retention:</strong> Pre-dawn thermal radiometry from the International Space Station capturing nocturnal heat release in high thermal mass masonry and concrete structures.</li>
               <li><strong>Layer 4 — CDC Social Vulnerability Index (SVI) Equity Overlays:</strong> Census tract demographic vectors combining income, elderly isolation, language barriers, and baseline asthma/cardiovascular hospital admission rates.</li>
               <li><strong>Layer 5 — 3D Buildings & Rooftop Albedo Retrofit Vectors:</strong> Extruded 3D urban canyon building envelopes highlighting flat commercial rooftop square footage suitable for cool roof coatings ($a = 0.85$) versus vertical canyon wall re-radiation risks.</li>
-              <li><strong>Layer 6 — Convective Airflow & Graph Laplacian Cheeger Corridors:</strong> Spectral graph partitioning cuts ($\phi(G)$) identifying optimal green infrastructure routing paths to break connected thermal heat islands.</li>
+              <li><strong>Layer 6 — Convective Airflow & Graph Laplacian Cheeger Corridors:</strong> Spectral graph partitioning cuts ($\\phi(G)$) identifying optimal green infrastructure routing paths to break connected thermal heat islands.</li>
             </ul>
           `,
           callout: {
@@ -178,7 +178,7 @@ export const PUBLICATIONS_DATA: Publication[] = [
                   Urban Tree Canopy (15–20 Year Maturity Delay & Drought Shutdown)
                 </h5>
                 <p class="text-xs text-slate-700 leading-relaxed">
-                  Newly planted saplings possess minimal leaf area index ($\text{LAI} < 0.8$) and provide negligible initial shading ($<2.5\,\text{m}^2$). Achieving full evapotranspirative cooling capacity ($\text{LAI} > 4.2$) requires <strong>15 to 20 years</strong> of continuous irrigation and sapling protection. Furthermore, during severe heatwaves ($T_a > 36^\circ\text{C}$, $\text{VPD} > 2.8\,\text{kPa}$), urban trees undergo stomatal closure ($g_s \to 0$) to prevent hydraulic xylem failure. This shuts down latent heat flux ($LE \to 0$), causing leaf skin temperatures to exceed ambient air and converting trees into net sensible heat emitters ($H > 0$).
+                  Newly planted saplings possess minimal leaf area index ($\\text{LAI} < 0.8$) and provide negligible initial shading ($<2.5\\,\\text{m}^2$). Achieving full evapotranspirative cooling capacity ($\\text{LAI} > 4.2$) requires <strong>15 to 20 years</strong> of continuous irrigation and sapling protection. Furthermore, during severe heatwaves ($T_a > 36^\\circ\\text{C}$, $\\text{VPD} > 2.8\\,\\text{kPa}$), urban trees undergo stomatal closure ($g_s \\to 0$) to prevent hydraulic xylem failure. This shuts down latent heat flux ($LE \\to 0$), causing leaf skin temperatures to exceed ambient air and converting trees into net sensible heat emitters ($H > 0$).
                 </p>
               </div>
 
@@ -188,7 +188,7 @@ export const PUBLICATIONS_DATA: Publication[] = [
                   High-Albedo Coatings (Particulate Soiling & Urban Canyon Reflection)
                 </h5>
                 <p class="text-xs text-slate-700 leading-relaxed">
-                  While cool roof coatings elevate initial solar reflectance from $\alpha_0 = 0.12$ to $0.85$, real-world atmospheric soot, particulate deposition, and biofilm colonization cause rapid exponential albedo degradation ($\Delta a = a_{aged} + (\alpha_0 - a_{aged}) e^{-t/\tau}$). Within 24 months, reflectance stabilizes at $\alpha_{aged} \approx 0.55 - 0.62$, representing a $\sim 25\%$ loss in cooling efficacy. Additionally, in deep urban canyons, reflected shortwave radiation ($S_{refl} = \alpha_{roof} S_\downarrow \cos \theta_{canyon}$) bounces onto adjacent vertical masonry facades, increasing building HVAC cooling loads in neighboring structures.
+                  While cool roof coatings elevate initial solar reflectance from $\\alpha_0 = 0.12$ to $0.85$, real-world atmospheric soot, particulate deposition, and biofilm colonization cause rapid exponential albedo degradation ($\\Delta a = a_{aged} + (\\alpha_0 - a_{aged}) e^{-t/\\tau}$). Within 24 months, reflectance stabilizes at $\\alpha_{aged} \\approx 0.55 - 0.62$, representing a $\\sim 25\%$ loss in cooling efficacy. Additionally, in deep urban canyons, reflected shortwave radiation ($S_{refl} = \\alpha_{roof} S_\\downarrow \\cos \\theta_{canyon}$) bounces onto adjacent vertical masonry facades, increasing building HVAC cooling loads in neighboring structures.
                 </p>
               </div>
 
@@ -198,7 +198,7 @@ export const PUBLICATIONS_DATA: Publication[] = [
                   Permeable Pavements (Moisture Dependency & Pedestrian Glare)
                 </h5>
                 <p class="text-xs text-slate-700 leading-relaxed">
-                  Permeable pavements cool exclusively through latent heat flux ($LE = \lambda E_{evap}$). In rainless summer heatwaves, soil moisture drops below critical residual content ($SM < SM_{res}$), completely halting evaporative cooling. Dry permeable asphalt has lower volumetric thermal mass ($C_v$) than solid concrete, resulting in <em>higher</em> daytime surface skin temperatures ($T_s$) between 12:00 and 15:00. Moreover, reflective pavements ($\alpha \ge 0.38$) reflect radiation directly onto pedestrians at 1.5m human height, elevating Mean Radiant Temperature ($MRT$) and physiological heat stress.
+                  Permeable pavements cool exclusively through latent heat flux ($LE = \\lambda E_{evap}$). In rainless summer heatwaves, soil moisture drops below critical residual content ($SM < SM_{res}$), completely halting evaporative cooling. Dry permeable asphalt has lower volumetric thermal mass ($C_v$) than solid concrete, resulting in <em>higher</em> daytime surface skin temperatures ($T_s$) between 12:00 and 15:00. Moreover, reflective pavements ($\\alpha \\ge 0.38$) reflect radiation directly onto pedestrians at 1.5m human height, elevating Mean Radiant Temperature ($MRT$) and physiological heat stress.
                 </p>
               </div>
             </div>
@@ -221,7 +221,7 @@ export const PUBLICATIONS_DATA: Publication[] = [
               <strong>Critical Percolation Threshold:</strong> <em>p</em><sub>c</sub> ≈ 0.382 ± 0.015 on urban street graph $G=(V,E)$.
             </p>
             <p class="leading-relaxed text-slate-700 mb-4">
-              Below $p_c$, isolated cool patches are engulfed by boundary heat advection ($H_{adv}$) from surrounding hot asphalt. Once spatial connectivity crosses $p_c$, a macroscopic connected cluster forms, inducing microclimatic pressure gradients ($\Delta P = -\rho g \frac{\Delta T}{T_0} \Delta z$) that channel sea and river breezes into dense, landlocked urban tracts.
+              Below $p_c$, isolated cool patches are engulfed by boundary heat advection ($H_{adv}$) from surrounding hot asphalt. Once spatial connectivity crosses $p_c$, a macroscopic connected cluster forms, inducing microclimatic pressure gradients ($\\Delta P = -\\rho g \\frac{\\Delta T}{T_0} \\Delta z$) that channel sea and river breezes into dense, landlocked urban tracts.
             </p>
           `,
           callout: {

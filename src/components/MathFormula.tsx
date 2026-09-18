@@ -180,6 +180,11 @@ export function renderMathInHtml(html: string): string {
   processed = processed.replace(
     /<p([^>]*)class="([^"]*font-mono[^"]*)"([^>]*)>\s*([\s\S]*?)\s*<\/p>/gi,
     (match, _p1, _p2, _p3, formulaText) => {
+      // If the content contains HTML tags (like <strong>, <em>, <sub>), it is not a pure LaTeX block.
+      // Skip block parsing so that inline $...$ parsing can handle math portions.
+      if (/<[a-z/][^>]*>/i.test(formulaText)) {
+        return match;
+      }
       const cleanedFormula = formulaText
         .trim()
         .replace(/&lt;/g, '<')
