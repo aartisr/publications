@@ -24,7 +24,9 @@ import {
   Lightbulb,
   HelpCircle,
   Sigma,
-  Copy
+  Copy,
+  Globe,
+  Heart
 } from 'lucide-react';
 
 interface ReadingInterfaceProps {
@@ -33,6 +35,7 @@ interface ReadingInterfaceProps {
   onOpenArchitecture: () => void;
   onOpenMathDeepDive?: () => void;
   onOpenDiscoverability?: () => void;
+  onOpenGlobalCommunity?: (tab?: 'world-impact' | 'translations' | 'action-kit' | 'sdgs' | 'amplifier') => void;
 }
 
 export const ReadingInterface: React.FC<ReadingInterfaceProps> = ({
@@ -40,7 +43,8 @@ export const ReadingInterface: React.FC<ReadingInterfaceProps> = ({
   onBack,
   onOpenArchitecture,
   onOpenMathDeepDive,
-  onOpenDiscoverability
+  onOpenDiscoverability,
+  onOpenGlobalCommunity
 }) => {
   const [fontSize, setFontSize] = useState<'normal' | 'large' | 'xl'>('normal');
   const [fontSerif, setFontSerif] = useState<boolean>(true);
@@ -182,15 +186,28 @@ export const ReadingInterface: React.FC<ReadingInterfaceProps> = ({
               </button>
             </div>
 
+            {/* Global Community Translations & Audio Shortcut */}
+            {onOpenGlobalCommunity && (
+              <button
+                onClick={() => onOpenGlobalCommunity('translations')}
+                className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1.5 rounded-lg bg-teal-50 hover:bg-teal-100 border border-teal-300 text-teal-950 text-xs font-bold transition-colors shadow-2xs"
+                title="Read plain-language summaries in 10 world languages with audio playback"
+              >
+                <Globe className="w-3.5 h-3.5 text-teal-700" />
+                <span className="hidden md:inline">10 Languages</span>
+                <span className="md:hidden">10L</span>
+              </button>
+            )}
+
             {/* Discoverability & AI Metadata Shortcut */}
             {onOpenDiscoverability && (
               <button
                 onClick={onOpenDiscoverability}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-950 text-xs font-bold transition-colors shadow-2xs"
+                className="hidden lg:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-950 text-xs font-bold transition-colors shadow-2xs"
                 title="Inspect AI Citations, Schema.org JSON-LD, and Highwire Press tags for this publication"
               >
                 <Sparkles className="w-3.5 h-3.5 text-emerald-700" />
-                <span className="hidden md:inline">AI Citations & SEO</span>
+                <span>AI / SEO</span>
               </button>
             )}
 
@@ -198,11 +215,11 @@ export const ReadingInterface: React.FC<ReadingInterfaceProps> = ({
             {onOpenMathDeepDive && (
               <button
                 onClick={onOpenMathDeepDive}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-100 hover:bg-amber-200 border border-amber-300 text-amber-950 text-xs font-bold transition-colors shadow-2xs"
+                className="hidden lg:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-100 hover:bg-amber-200 border border-amber-300 text-amber-950 text-xs font-bold transition-colors shadow-2xs"
                 title="Inspect Mathematical Proofs & Spectral Formulas"
               >
                 <Sigma className="w-3.5 h-3.5 text-amber-700" />
-                <span className="hidden md:inline">Spectral Math</span>
+                <span>Math</span>
               </button>
             )}
 
@@ -310,6 +327,42 @@ export const ReadingInterface: React.FC<ReadingInterfaceProps> = ({
             </p>
           </div>
         )}
+
+        {/* For the Love of Community: Multilingual & Action Hub Callout */}
+        <div className="mt-4 p-4 bg-gradient-to-r from-teal-900 via-emerald-900 to-slate-900 text-white rounded-xl border border-teal-700/60 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div className="flex items-start gap-2.5">
+            <Heart className="w-4 h-4 text-rose-400 fill-rose-400 shrink-0 mt-0.5 animate-pulse" />
+            <div>
+              <div className="text-xs font-bold text-teal-200">
+                For the Love of Community & Universal Access
+              </div>
+              <div className="text-[11px] text-teal-100/80 mt-0.5">
+                Read plain-language summaries in 10 world languages, listen to audio overviews, or download civic town-hall scripts.
+              </div>
+            </div>
+          </div>
+
+          <div className="flex items-center gap-2 shrink-0 w-full sm:w-auto">
+            {onOpenGlobalCommunity && (
+              <button
+                onClick={() => onOpenGlobalCommunity('translations')}
+                className="w-full sm:w-auto px-3.5 py-1.5 rounded-lg bg-teal-400 hover:bg-teal-300 text-slate-950 font-bold text-xs transition-colors flex items-center justify-center gap-1.5 shadow-2xs"
+              >
+                <Globe className="w-3.5 h-3.5 text-slate-950" />
+                <span>10 Languages & Audio</span>
+              </button>
+            )}
+            {onOpenGlobalCommunity && (
+              <button
+                onClick={() => onOpenGlobalCommunity('action-kit')}
+                className="w-full sm:w-auto px-3.5 py-1.5 rounded-lg bg-white/10 hover:bg-white/20 text-white font-semibold text-xs border border-white/20 transition-colors flex items-center justify-center gap-1.5"
+              >
+                <FileText className="w-3.5 h-3.5 text-teal-300" />
+                <span>Action Kit</span>
+              </button>
+            )}
+          </div>
+        </div>
       </header>
 
       {/* Main Reading Container: Dual-Column with Sticky TOC on Desktop */}

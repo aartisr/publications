@@ -8,6 +8,7 @@ import { DashboardArchitectureModal } from './components/DashboardArchitectureMo
 import { MathDeepDiveModal } from './components/MathDeepDiveModal';
 import { SubscribeModal } from './components/SubscribeModal';
 import { DiscoverabilityModal } from './components/seo/DiscoverabilityModal';
+import { GlobalCommunityHubModal } from './components/community/GlobalCommunityHubModal';
 import { SEOHead } from './components/seo/SEOHead';
 import { publicationService } from './services/publicationService';
 import { Publication } from './types';
@@ -15,7 +16,8 @@ import { Publication } from './types';
 /**
  * Main Application Orchestrator
  * High-performance, modular, plug-and-play architecture for scientific publications.
- * Includes complete GEO, AIO, AEI, AXO, and Highwire Press SEO discoverability layer.
+ * Includes complete GEO, AIO, AEI, AXO, and Highwire Press SEO discoverability layer,
+ * and Worldwide Community Impact Hub with 10-language translations and grassroots toolkits.
  */
 export default function App() {
   const [activeView, setActiveView] = useState<'portfolio' | 'reader'>('portfolio');
@@ -29,6 +31,17 @@ export default function App() {
   const [isMathDeepDiveOpen, setIsMathDeepDiveOpen] = useState(false);
   const [isSubscribeOpen, setIsSubscribeOpen] = useState(false);
   const [isDiscoverabilityOpen, setIsDiscoverabilityOpen] = useState(false);
+  const [isGlobalCommunityOpen, setIsGlobalCommunityOpen] = useState(false);
+  const [globalCommunityInitialTab, setGlobalCommunityInitialTab] = useState<
+    'world-impact' | 'translations' | 'action-kit' | 'sdgs' | 'amplifier'
+  >('world-impact');
+
+  const handleOpenGlobalCommunity = (
+    tab: 'world-impact' | 'translations' | 'action-kit' | 'sdgs' | 'amplifier' = 'world-impact'
+  ) => {
+    setGlobalCommunityInitialTab(tab);
+    setIsGlobalCommunityOpen(true);
+  };
 
   // Smooth scroll to top on view changes
   const handleReadPublication = (pub: Publication) => {
@@ -54,6 +67,7 @@ export default function App() {
         onOpenMathDeepDive={() => setIsMathDeepDiveOpen(true)}
         onOpenSubscribe={() => setIsSubscribeOpen(true)}
         onOpenDiscoverability={() => setIsDiscoverabilityOpen(true)}
+        onOpenGlobalCommunity={handleOpenGlobalCommunity}
         activeView={activeView}
         onToggleView={(view) => {
           setActiveView(view);
@@ -69,6 +83,7 @@ export default function App() {
           onOpenArchitecture={() => setIsArchitectureOpen(true)}
           onOpenMathDeepDive={() => setIsMathDeepDiveOpen(true)}
           onOpenDiscoverability={() => setIsDiscoverabilityOpen(true)}
+          onOpenGlobalCommunity={handleOpenGlobalCommunity}
         />
       ) : (
         <PortfolioView
@@ -78,6 +93,7 @@ export default function App() {
           onOpenMathDeepDive={() => setIsMathDeepDiveOpen(true)}
           onOpenSubscribe={() => setIsSubscribeOpen(true)}
           onOpenDiscoverability={() => setIsDiscoverabilityOpen(true)}
+          onOpenGlobalCommunity={handleOpenGlobalCommunity}
         />
       )}
 
@@ -88,9 +104,16 @@ export default function App() {
         onOpenArchitecture={() => setIsArchitectureOpen(true)}
         onOpenSubscribe={() => setIsSubscribeOpen(true)}
         onOpenDiscoverability={() => setIsDiscoverabilityOpen(true)}
+        onOpenGlobalCommunity={handleOpenGlobalCommunity}
       />
 
-      {/* Global Academic & Discoverability Modals */}
+      {/* Global Academic, Community & Discoverability Modals */}
+      <GlobalCommunityHubModal
+        isOpen={isGlobalCommunityOpen}
+        onClose={() => setIsGlobalCommunityOpen(false)}
+        initialTab={globalCommunityInitialTab}
+      />
+
       <DiscoverabilityModal
         isOpen={isDiscoverabilityOpen}
         onClose={() => setIsDiscoverabilityOpen(false)}

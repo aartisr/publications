@@ -9,7 +9,8 @@ import { PublicationCard } from '../PublicationCard';
 import { CompactPublicationTable } from '../portfolio/CompactPublicationTable';
 import { EmptySearchResults } from '../portfolio/EmptySearchResults';
 import { ResearchVisionSection } from '../portfolio/ResearchVisionSection';
-import { ChevronRight } from 'lucide-react';
+import { GlobalCommunityBanner } from '../community/GlobalCommunityBanner';
+import { ChevronRight, Globe, Heart } from 'lucide-react';
 
 interface PortfolioViewProps {
   onReadPublication: (pub: Publication) => void;
@@ -18,6 +19,7 @@ interface PortfolioViewProps {
   onOpenMathDeepDive: () => void;
   onOpenSubscribe: () => void;
   onOpenDiscoverability: () => void;
+  onOpenGlobalCommunity: (tab?: 'world-impact' | 'translations' | 'action-kit' | 'sdgs' | 'amplifier') => void;
 }
 
 export const PortfolioView: React.FC<PortfolioViewProps> = ({
@@ -26,7 +28,8 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
   onOpenArchitecture,
   onOpenMathDeepDive,
   onOpenSubscribe,
-  onOpenDiscoverability
+  onOpenDiscoverability,
+  onOpenGlobalCommunity
 }) => {
   // Search & Filter State
   const [searchQuery, setSearchQuery] = useState('');
@@ -77,6 +80,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
         onOpenMathDeepDive={onOpenMathDeepDive}
         onOpenSubscribe={onOpenSubscribe}
         onOpenDiscoverability={onOpenDiscoverability}
+        onOpenGlobalCommunity={onOpenGlobalCommunity}
       />
 
       {/* Benchmark Motivation Ribbon */}
@@ -89,6 +93,14 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
             </span>
           </div>
           <div className="flex items-center gap-3 shrink-0">
+            <button
+              onClick={() => onOpenGlobalCommunity('world-impact')}
+              className="font-bold text-teal-900 hover:text-teal-950 underline flex items-center gap-1"
+            >
+              <Globe className="w-3.5 h-3.5 text-teal-700" />
+              <span>Global Reach (10 Langs)</span>
+            </button>
+            <span className="text-amber-300">•</span>
             <button
               onClick={onOpenDiscoverability}
               className="font-bold text-emerald-900 hover:text-emerald-950 underline flex items-center gap-1"
@@ -115,6 +127,9 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
           onOpenMathDeepDive={onOpenMathDeepDive}
           onOpenBenchmarks={onOpenBenchmarks}
         />
+
+        {/* Global Community & Worldwide Impact Callout Banner */}
+        <GlobalCommunityBanner onOpenGlobalCommunity={onOpenGlobalCommunity} />
 
         {/* Featured Landmark Paper Spotlight (Only shown when not actively filtering) */}
         {!searchQuery && selectedTopic === 'All Topics' && selectedType === 'all' && (

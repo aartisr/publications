@@ -1,5 +1,5 @@
 import React from 'react';
-import { ExternalLink, Sigma, Award, Layers, Bell } from 'lucide-react';
+import { ExternalLink, Sigma, Award, Layers, Bell, Globe, Heart, FileText } from 'lucide-react';
 
 interface FooterProps {
   onOpenMathDeepDive: () => void;
@@ -7,6 +7,7 @@ interface FooterProps {
   onOpenArchitecture: () => void;
   onOpenSubscribe: () => void;
   onOpenDiscoverability: () => void;
+  onOpenGlobalCommunity?: (tab?: 'world-impact' | 'translations' | 'action-kit' | 'sdgs' | 'amplifier') => void;
 }
 
 export const Footer: React.FC<FooterProps> = ({
@@ -14,7 +15,8 @@ export const Footer: React.FC<FooterProps> = ({
   onOpenBenchmarks,
   onOpenArchitecture,
   onOpenSubscribe,
-  onOpenDiscoverability
+  onOpenDiscoverability,
+  onOpenGlobalCommunity
 }) => {
   return (
     <footer className="bg-[#0B192C] text-slate-300 border-t border-slate-800 py-12 text-xs">
@@ -97,6 +99,39 @@ export const Footer: React.FC<FooterProps> = ({
               Academic Actions
             </div>
             <ul className="space-y-1.5 text-slate-400">
+              {onOpenGlobalCommunity && (
+                <li>
+                  <button
+                    onClick={() => onOpenGlobalCommunity('world-impact')}
+                    className="hover:text-teal-300 transition-colors text-left font-bold text-teal-300 flex items-center gap-1"
+                  >
+                    <Globe className="w-3.5 h-3.5 text-teal-400" />
+                    <span>Worldwide Community Impact Hub</span>
+                  </button>
+                </li>
+              )}
+              {onOpenGlobalCommunity && (
+                <li>
+                  <button
+                    onClick={() => onOpenGlobalCommunity('translations')}
+                    className="hover:text-teal-300 transition-colors text-left font-medium text-slate-300 flex items-center gap-1"
+                  >
+                    <Heart className="w-3.5 h-3.5 text-rose-400" />
+                    <span>Read in 10 Languages (Audio Included)</span>
+                  </button>
+                </li>
+              )}
+              {onOpenGlobalCommunity && (
+                <li>
+                  <button
+                    onClick={() => onOpenGlobalCommunity('action-kit')}
+                    className="hover:text-teal-300 transition-colors text-left font-medium text-slate-300 flex items-center gap-1"
+                  >
+                    <FileText className="w-3.5 h-3.5 text-amber-400" />
+                    <span>Grassroots & STEM Action Kits</span>
+                  </button>
+                </li>
+              )}
               <li>
                 <button
                   onClick={onOpenDiscoverability}
