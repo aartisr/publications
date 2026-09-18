@@ -5,9 +5,10 @@ import { BookOpen, ExternalLink, GitBranch, Quote, Check, Sparkles, Download, Ey
 interface PublicationCardProps {
   publication: Publication;
   onRead: (pub: Publication) => void;
+  onOpenDownload?: (pub: Publication) => void;
 }
 
-export const PublicationCard: React.FC<PublicationCardProps> = ({ publication, onRead }) => {
+export const PublicationCard: React.FC<PublicationCardProps> = ({ publication, onRead, onOpenDownload }) => {
   const [copiedBibtex, setCopiedBibtex] = useState(false);
   const [showBibtexModal, setShowBibtexModal] = useState(false);
 
@@ -137,6 +138,20 @@ export const PublicationCard: React.FC<PublicationCardProps> = ({ publication, o
 
         {/* Action Buttons */}
         <div className="flex items-center gap-2">
+          {onOpenDownload && (
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                onOpenDownload(publication);
+              }}
+              className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-amber-50 hover:bg-amber-100 border border-amber-300 text-amber-950 text-xs font-semibold transition-colors"
+              title="Download publication in PDF, Markdown, or BibTeX"
+            >
+              <Download className="w-3.5 h-3.5 text-amber-800" />
+              <span>Download</span>
+            </button>
+          )}
+
           <button
             onClick={handleCopyBibtex}
             className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg border border-slate-200 hover:bg-slate-50 text-slate-700 text-xs transition-colors"

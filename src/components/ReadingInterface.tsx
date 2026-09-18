@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Publication } from '../types';
+import { documentExportService } from '../services/documentExportService';
 import { ThermalScatterChart } from './charts/ThermalScatterChart';
 import { MetropolitanHeatMap } from './charts/MetropolitanHeatMap';
 import { MitigationSimulator } from './charts/MitigationSimulator';
+import { GoogleEarthGISExplorer } from './GoogleEarthGISExplorer';
 import { MathFormula } from './MathFormula';
 import {
   ArrowLeft,
@@ -14,6 +16,7 @@ import {
   ExternalLink,
   Share2,
   FileText,
+  FileCode,
   Sparkles,
   Sliders,
   Type,
@@ -26,7 +29,8 @@ import {
   Sigma,
   Copy,
   Globe,
-  Heart
+  Heart,
+  Printer
 } from 'lucide-react';
 
 interface ReadingInterfaceProps {
@@ -36,6 +40,7 @@ interface ReadingInterfaceProps {
   onOpenMathDeepDive?: () => void;
   onOpenDiscoverability?: () => void;
   onOpenGlobalCommunity?: (tab?: 'world-impact' | 'translations' | 'action-kit' | 'sdgs' | 'amplifier') => void;
+  onOpenDownload?: (publication: Publication) => void;
 }
 
 export const ReadingInterface: React.FC<ReadingInterfaceProps> = ({
@@ -44,7 +49,8 @@ export const ReadingInterface: React.FC<ReadingInterfaceProps> = ({
   onOpenArchitecture,
   onOpenMathDeepDive,
   onOpenDiscoverability,
-  onOpenGlobalCommunity
+  onOpenGlobalCommunity,
+  onOpenDownload
 }) => {
   const [fontSize, setFontSize] = useState<'normal' | 'large' | 'xl'>('normal');
   const [fontSerif, setFontSerif] = useState<boolean>(true);
@@ -223,6 +229,16 @@ export const ReadingInterface: React.FC<ReadingInterfaceProps> = ({
               </button>
             )}
 
+            {/* Download Monograph Action */}
+            <button
+              onClick={() => onOpenDownload ? onOpenDownload(publication) : documentExportService.downloadPdfOrPrint(publication)}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-900 hover:bg-slate-900 text-amber-200 hover:text-white text-xs font-bold transition-all shadow-2xs group"
+              title="Download Research Monograph in top 3 formats (PDF, Markdown, BibTeX)"
+            >
+              <Download className="w-3.5 h-3.5 text-amber-400 group-hover:translate-y-0.5 transition-transform" />
+              <span>Download Monograph</span>
+            </button>
+
             {/* BibTeX Action */}
             <button
               onClick={handleCopyBibtex}
@@ -315,6 +331,58 @@ export const ReadingInterface: React.FC<ReadingInterfaceProps> = ({
           </div>
         </div>
 
+        {/* Download Monograph in Top 3 Formats Highlight Banner */}
+        <div className="mt-4 p-4 bg-[#FAF8F5] rounded-2xl border-2 border-amber-300 shadow-xs flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+          <div>
+            <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
+              <Download className="w-4 h-4 text-amber-700 font-bold" />
+              <span>Download Research Monograph in Top 3 Formats</span>
+            </div>
+            <div className="text-[11px] text-slate-600 mt-0.5">
+              Available as <strong>PDF Academic Reprint</strong>, <strong>Scientific Markdown (.md)</strong> with LaTeX, and <strong>BibTeX (.bib)</strong> citation bundle.
+            </div>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2 w-full sm:w-auto">
+            <button
+              onClick={() => documentExportService.downloadPdfOrPrint(publication)}
+              className="px-3 py-1.5 rounded-lg bg-amber-900 hover:bg-slate-900 text-white font-bold text-xs flex items-center gap-1.5 shadow-2xs transition-colors"
+              title="Download/Print PDF Academic Reprint"
+            >
+              <Printer className="w-3.5 h-3.5 text-amber-400" />
+              <span>1. PDF</span>
+            </button>
+
+            <button
+              onClick={() => documentExportService.downloadMarkdown(publication)}
+              className="px-3 py-1.5 rounded-lg bg-emerald-700 hover:bg-emerald-800 text-white font-bold text-xs flex items-center gap-1.5 shadow-2xs transition-colors"
+              title="Download Scientific Markdown with YAML frontmatter"
+            >
+              <FileCode className="w-3.5 h-3.5 text-emerald-200" />
+              <span>2. Markdown</span>
+            </button>
+
+            <button
+              onClick={() => documentExportService.downloadBibtex(publication)}
+              className="px-3 py-1.5 rounded-lg bg-blue-700 hover:bg-blue-800 text-white font-bold text-xs flex items-center gap-1.5 shadow-2xs transition-colors"
+              title="Download BibTeX Citation file"
+            >
+              <Quote className="w-3.5 h-3.5 text-blue-200" />
+              <span>3. BibTeX</span>
+            </button>
+
+            {onOpenDownload && (
+              <button
+                onClick={() => onOpenDownload(publication)}
+                className="px-3 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-800 border border-slate-300 font-bold text-xs flex items-center gap-1 transition-colors"
+                title="Open Download Modal"
+              >
+                <span>More</span>
+              </button>
+            )}
+          </div>
+        </div>
+
         {/* Executive Summary Card */}
         {publication.fullContent?.executiveSummary && (
           <div className="mt-6 p-4 bg-white rounded-xl border border-amber-200/90 shadow-2xs">
@@ -394,6 +462,47 @@ export const ReadingInterface: React.FC<ReadingInterfaceProps> = ({
                 })}
               </nav>
 
+              {/* Quick Downloads Card in Sidebar */}
+              <div className="pt-3 border-t border-slate-200 space-y-2">
+                <div className="text-[11px] font-mono uppercase tracking-wider text-slate-500 font-bold">
+                  Download Monograph
+                </div>
+                <div className="grid grid-cols-1 gap-1.5 text-xs">
+                  <button
+                    onClick={() => documentExportService.downloadPdfOrPrint(publication)}
+                    className="w-full p-2 rounded-lg bg-amber-50 hover:bg-amber-100 border border-amber-300 text-amber-950 font-semibold flex items-center justify-between transition-colors text-left"
+                  >
+                    <span className="flex items-center gap-1.5">
+                      <Printer className="w-3.5 h-3.5 text-amber-700" />
+                      PDF Reprint
+                    </span>
+                    <span className="text-[10px] font-mono text-amber-800">.pdf</span>
+                  </button>
+
+                  <button
+                    onClick={() => documentExportService.downloadMarkdown(publication)}
+                    className="w-full p-2 rounded-lg bg-emerald-50 hover:bg-emerald-100 border border-emerald-300 text-emerald-950 font-semibold flex items-center justify-between transition-colors text-left"
+                  >
+                    <span className="flex items-center gap-1.5">
+                      <FileCode className="w-3.5 h-3.5 text-emerald-700" />
+                      Markdown
+                    </span>
+                    <span className="text-[10px] font-mono text-emerald-800">.md</span>
+                  </button>
+
+                  <button
+                    onClick={() => documentExportService.downloadBibtex(publication)}
+                    className="w-full p-2 rounded-lg bg-blue-50 hover:bg-blue-100 border border-blue-300 text-blue-950 font-semibold flex items-center justify-between transition-colors text-left"
+                  >
+                    <span className="flex items-center gap-1.5">
+                      <Quote className="w-3.5 h-3.5 text-blue-700" />
+                      BibTeX
+                    </span>
+                    <span className="text-[10px] font-mono text-blue-800">.bib</span>
+                  </button>
+                </div>
+              </div>
+
               {/* Research Blueprint Link */}
               <div className="pt-4 border-t border-slate-200">
                 <button
@@ -462,6 +571,13 @@ export const ReadingInterface: React.FC<ReadingInterfaceProps> = ({
                         <span>{sec.callout.title}</span>
                       </div>
                       <p className="font-sans text-xs sm:text-sm">{sec.callout.text}</p>
+                    </div>
+                  )}
+
+                  {/* Interactive Google Earth Multi-Layer GIS Explorer in Section 2 */}
+                  {sec.id === 'sec-data-readiness' && (
+                    <div className="my-8">
+                      <GoogleEarthGISExplorer />
                     </div>
                   )}
 

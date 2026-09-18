@@ -15,7 +15,8 @@ import {
   X,
   FileText,
   ShieldCheck,
-  Zap
+  Zap,
+  Download
 } from 'lucide-react';
 
 interface NavbarProps {
@@ -25,6 +26,7 @@ interface NavbarProps {
   onOpenSubscribe: () => void;
   onOpenDiscoverability: () => void;
   onOpenGlobalCommunity: (tab?: 'world-impact' | 'translations' | 'action-kit' | 'sdgs' | 'amplifier') => void;
+  onOpenDownload?: () => void;
   activeView: 'portfolio' | 'reader';
   onToggleView: (view: 'portfolio' | 'reader') => void;
 }
@@ -36,6 +38,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenSubscribe,
   onOpenDiscoverability,
   onOpenGlobalCommunity,
+  onOpenDownload,
   activeView,
   onToggleView
 }) => {
@@ -111,6 +114,22 @@ export const Navbar: React.FC<NavbarProps> = ({
               <Globe className="w-3.5 h-3.5 text-teal-700 group-hover:rotate-12 transition-transform" />
               <span>Global Community</span>
               <span className="px-1.5 py-0.2 rounded-full bg-teal-200 text-teal-900 text-[10px] font-mono font-bold">10 Langs</span>
+            </button>
+
+            {/* Direct 3D Google Earth GIS Map Button */}
+            <button
+              onClick={() => {
+                if (activeView !== 'reader') onToggleView('reader');
+                setTimeout(() => {
+                  const el = document.getElementById('sec-data-readiness');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }, 120);
+              }}
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-emerald-800 hover:bg-emerald-900 text-white text-xs font-bold transition-all shadow-2xs group"
+              title="Jump directly to the 3D Google Earth & Multi-Layer GIS Explorer"
+            >
+              <Layers className="w-3.5 h-3.5 text-emerald-300" />
+              <span>3D GIS Map</span>
             </button>
 
             {/* Research Dossiers Dropdown (Consolidates 4 deep-dive modules) */}
@@ -235,6 +254,18 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Right Action Icons & Subscribe CTA */}
           <div className="hidden sm:flex items-center gap-2.5">
+            {/* Download Monograph Button */}
+            {onOpenDownload && (
+              <button
+                onClick={onOpenDownload}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-950 border border-amber-300 text-xs font-bold transition-all shadow-2xs group"
+                title="Download Research Monograph in top 3 formats (PDF, Markdown, BibTeX)"
+              >
+                <Download className="w-3.5 h-3.5 text-amber-800 group-hover:translate-y-0.5 transition-transform" />
+                <span>Download Monograph</span>
+              </button>
+            )}
+
             {/* Live Interactive Platform */}
             <a
               href="https://urban-heat.ai-aarti.com/"
@@ -270,6 +301,16 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Mobile Navigation Hamburger Trigger */}
           <div className="flex items-center gap-2 lg:hidden">
+            {onOpenDownload && (
+              <button
+                onClick={onOpenDownload}
+                className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-amber-100 border border-amber-300 text-amber-950 text-xs font-bold shadow-2xs"
+              >
+                <Download className="w-3 h-3 text-amber-800" />
+                <span>PDF/MD</span>
+              </button>
+            )}
+
             <button
               onClick={onOpenSubscribe}
               className="sm:hidden inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-[#0B192C] text-amber-300 text-xs font-semibold shadow-xs"
@@ -293,17 +334,33 @@ export const Navbar: React.FC<NavbarProps> = ({
       {/* Mobile Menu Overlay Drawer */}
       {isMobileMenuOpen && (
         <div className="lg:hidden border-t border-slate-200 bg-[#FAF8F5] px-4 pt-3 pb-6 space-y-3 animate-in fade-in slide-in-from-top-4 duration-200 shadow-xl">
-          <div className="grid grid-cols-2 gap-2 pt-1">
+          <div className="grid grid-cols-3 gap-2 pt-1">
             <button
               onClick={() => {
                 setIsMobileMenuOpen(false);
                 onOpenGlobalCommunity('world-impact');
               }}
-              className="flex flex-col items-start p-3 rounded-xl bg-teal-50 border border-teal-200 text-teal-950"
+              className="flex flex-col items-start p-2.5 rounded-xl bg-teal-50 border border-teal-200 text-teal-950"
             >
               <Globe className="w-4 h-4 text-teal-700 mb-1" />
-              <span className="text-xs font-bold">Global Impact</span>
-              <span className="text-[10px] text-teal-700 font-mono">10 Languages</span>
+              <span className="text-[11px] font-bold">Global</span>
+              <span className="text-[9px] text-teal-700 font-mono">10 Langs</span>
+            </button>
+
+            <button
+              onClick={() => {
+                setIsMobileMenuOpen(false);
+                if (activeView !== 'reader') onToggleView('reader');
+                setTimeout(() => {
+                  const el = document.getElementById('sec-data-readiness');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }, 120);
+              }}
+              className="flex flex-col items-start p-2.5 rounded-xl bg-emerald-800 text-white"
+            >
+              <Layers className="w-4 h-4 text-emerald-300 mb-1" />
+              <span className="text-[11px] font-bold">3D GIS</span>
+              <span className="text-[9px] text-emerald-200 font-mono">Map View</span>
             </button>
 
             <button
@@ -311,11 +368,11 @@ export const Navbar: React.FC<NavbarProps> = ({
                 setIsMobileMenuOpen(false);
                 onOpenDiscoverability();
               }}
-              className="flex flex-col items-start p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-950"
+              className="flex flex-col items-start p-2.5 rounded-xl bg-slate-100 border border-slate-200 text-slate-900"
             >
               <Sparkles className="w-4 h-4 text-emerald-700 mb-1" />
-              <span className="text-xs font-bold">AI & SEO</span>
-              <span className="text-[10px] text-emerald-700 font-mono">100% Discoverable</span>
+              <span className="text-[11px] font-bold">AI & SEO</span>
+              <span className="text-[9px] text-slate-500 font-mono">Discover</span>
             </button>
           </div>
 

@@ -9,6 +9,7 @@ import { MathDeepDiveModal } from './components/MathDeepDiveModal';
 import { SubscribeModal } from './components/SubscribeModal';
 import { DiscoverabilityModal } from './components/seo/DiscoverabilityModal';
 import { GlobalCommunityHubModal } from './components/community/GlobalCommunityHubModal';
+import { DownloadMonographModal } from './components/DownloadMonographModal';
 import { SEOHead } from './components/seo/SEOHead';
 import { publicationService } from './services/publicationService';
 import { Publication } from './types';
@@ -17,7 +18,8 @@ import { Publication } from './types';
  * Main Application Orchestrator
  * High-performance, modular, plug-and-play architecture for scientific publications.
  * Includes complete GEO, AIO, AEI, AXO, and Highwire Press SEO discoverability layer,
- * and Worldwide Community Impact Hub with 10-language translations and grassroots toolkits.
+ * Worldwide Community Impact Hub with 10-language translations and grassroots toolkits,
+ * and academic Research Monograph download engine (PDF Academic Reprint, Scientific Markdown, BibTeX citation bundles).
  */
 export default function App() {
   const [activeView, setActiveView] = useState<'portfolio' | 'reader'>('portfolio');
@@ -32,6 +34,10 @@ export default function App() {
   const [isSubscribeOpen, setIsSubscribeOpen] = useState(false);
   const [isDiscoverabilityOpen, setIsDiscoverabilityOpen] = useState(false);
   const [isGlobalCommunityOpen, setIsGlobalCommunityOpen] = useState(false);
+  const [isDownloadOpen, setIsDownloadOpen] = useState(false);
+  const [downloadTargetPub, setDownloadTargetPub] = useState<Publication>(() =>
+    publicationService.getFeaturedPublication()
+  );
   const [globalCommunityInitialTab, setGlobalCommunityInitialTab] = useState<
     'world-impact' | 'translations' | 'action-kit' | 'sdgs' | 'amplifier'
   >('world-impact');
@@ -41,6 +47,11 @@ export default function App() {
   ) => {
     setGlobalCommunityInitialTab(tab);
     setIsGlobalCommunityOpen(true);
+  };
+
+  const handleOpenDownload = (pub?: Publication) => {
+    setDownloadTargetPub(pub || selectedPublication || publicationService.getFeaturedPublication());
+    setIsDownloadOpen(true);
   };
 
   // Smooth scroll to top on view changes
@@ -68,6 +79,7 @@ export default function App() {
         onOpenSubscribe={() => setIsSubscribeOpen(true)}
         onOpenDiscoverability={() => setIsDiscoverabilityOpen(true)}
         onOpenGlobalCommunity={handleOpenGlobalCommunity}
+        onOpenDownload={() => handleOpenDownload(selectedPublication)}
         activeView={activeView}
         onToggleView={(view) => {
           setActiveView(view);
@@ -84,6 +96,7 @@ export default function App() {
           onOpenMathDeepDive={() => setIsMathDeepDiveOpen(true)}
           onOpenDiscoverability={() => setIsDiscoverabilityOpen(true)}
           onOpenGlobalCommunity={handleOpenGlobalCommunity}
+          onOpenDownload={handleOpenDownload}
         />
       ) : (
         <PortfolioView
@@ -94,6 +107,7 @@ export default function App() {
           onOpenSubscribe={() => setIsSubscribeOpen(true)}
           onOpenDiscoverability={() => setIsDiscoverabilityOpen(true)}
           onOpenGlobalCommunity={handleOpenGlobalCommunity}
+          onOpenDownload={handleOpenDownload}
         />
       )}
 
@@ -108,6 +122,12 @@ export default function App() {
       />
 
       {/* Global Academic, Community & Discoverability Modals */}
+      <DownloadMonographModal
+        isOpen={isDownloadOpen}
+        onClose={() => setIsDownloadOpen(false)}
+        publication={downloadTargetPub}
+      />
+
       <GlobalCommunityHubModal
         isOpen={isGlobalCommunityOpen}
         onClose={() => setIsGlobalCommunityOpen(false)}

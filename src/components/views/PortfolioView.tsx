@@ -20,6 +20,7 @@ interface PortfolioViewProps {
   onOpenSubscribe: () => void;
   onOpenDiscoverability: () => void;
   onOpenGlobalCommunity: (tab?: 'world-impact' | 'translations' | 'action-kit' | 'sdgs' | 'amplifier') => void;
+  onOpenDownload?: (pub: Publication) => void;
 }
 
 export const PortfolioView: React.FC<PortfolioViewProps> = ({
@@ -29,7 +30,8 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
   onOpenMathDeepDive,
   onOpenSubscribe,
   onOpenDiscoverability,
-  onOpenGlobalCommunity
+  onOpenGlobalCommunity,
+  onOpenDownload
 }) => {
   // Search & Filter State
   const [searchQuery, setSearchQuery] = useState('');
@@ -138,6 +140,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
             onRead={onReadPublication}
             onOpenMathDeepDive={onOpenMathDeepDive}
             onOpenArchitecture={onOpenArchitecture}
+            onOpenDownload={onOpenDownload}
           />
         )}
 
@@ -188,6 +191,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
                     key={publication.id}
                     publication={publication}
                     onRead={onReadPublication}
+                    onOpenDownload={onOpenDownload}
                   />
                 ))}
               </div>

@@ -10,7 +10,7 @@ export interface Publication {
     orcid?: string;
   }[];
   journalOrVenue: string;
-  type: 'journal' | 'interactive_paper' | 'grant_proposal' | 'policy_brief' | 'conference';
+  type: 'journal' | 'interactive_paper' | 'grant_proposal' | 'policy_brief' | 'conference' | 'monograph';
   status: 'Published' | 'Under Review' | 'Awarded & Active' | 'Open Preprint';
   date: string;
   year: number;
