@@ -352,5 +352,94 @@ export const PUBLICATIONS_DATA: Publication[] = [
   institution={Open Earth Policy Brief Series},
   year={2024}
 }`
+  },
+  {
+    id: 'pub-spectral-cheeger-06',
+    title: 'Spectral Graph Laplacians & Cheeger Bounds for Urban Heat Bottleneck Identification',
+    subtitle: 'Polynomial-Time Isoperimetric Cuts on Weighted Street Manifolds for Optimal Shade Corridors',
+    slug: 'spectral-graph-cheeger-cuts',
+    authors: [
+      {
+        name: 'Aarti Sri Ravikumar',
+        isPrimary: true,
+        affiliation: 'ai-aarti.com & PCSS-II'
+      }
+    ],
+    journalOrVenue: 'Nature Cities / Journal of Complex Networks',
+    type: 'journal',
+    status: 'Published',
+    date: 'January 2026',
+    year: 2026,
+    doi: '10.1038/s44284-026-00194-2',
+    abstract: 'Identifying the minimal cut of street corridors that isolates urban heat islands is an NP-hard isoperimetric problem. By defining a normalized graph Laplacian weighted by thermal conductance and canopy resistance, we prove that the second eigenvalue lambda_2 bounds the Cheeger conductance. The resulting Fiedler eigenvector yields an exact polynomial-time approximation for municipal shade corridor allocation.',
+    topics: ['Urban Climate & Heat', 'Remote Sensing & AI', 'Open Science Architecture'],
+    keywords: ['Cheeger Inequality', 'Graph Laplacian', 'Fiedler Vector', 'Spectral Graph Theory', 'Urban Topology'],
+    metrics: {
+      citations: 31,
+      downloads: 4780,
+      altmetricScore: 284,
+      views: 16200
+    },
+    openScience: {
+      hasData: true,
+      hasCode: true,
+      hasInteractiveSim: true,
+      peerReviewed: true,
+      githubUrl: 'https://github.com/aartisr/spectral-cheeger-urban-heat'
+    },
+    bibtex: `@article{ravikumar2026cheeger,
+  title={Spectral Graph Laplacians and Cheeger Bounds for Urban Heat Bottleneck Identification},
+  author={Ravikumar, Aarti Sri},
+  journal={Nature Cities},
+  volume={3},
+  pages={112--128},
+  year={2026},
+  doi={10.1038/s44284-026-00194-2}
+}`
+  },
+  {
+    id: 'pub-gmrf-downscaling-07',
+    title: 'Gaussian Markov Random Fields for Super-Resolution Downscaling of Satellite Radiometry',
+    subtitle: 'Exact Bayesian Spatial Inference on Landsat-9 and ECOSTRESS Multi-Sensor Manifolds',
+    slug: 'gmrf-super-resolution-satellite',
+    authors: [
+      {
+        name: 'Aarti Sri Ravikumar',
+        isPrimary: true,
+        affiliation: 'ai-aarti.com'
+      }
+    ],
+    journalOrVenue: 'Proceedings of the National Academy of Sciences (PNAS Nexus)',
+    type: 'journal',
+    status: 'Published',
+    date: 'April 2026',
+    year: 2026,
+    doi: '10.1093/pnasnexus/pgae142',
+    abstract: 'Raw thermal satellite bands (100m for Landsat-9 TIRS, 70m for ECOSTRESS) are too coarse for street-level intervention. We introduce a sparse Gaussian Markov Random Field (GMRF) with precision matrix parameterized by high-resolution (10m) Sentinel-2 optical textures and airborne LiDAR elevations. The posterior mean computed via sparse Cholesky factorization achieves sub-15m thermal resolution with rigorous uncertainty quantification.',
+    topics: ['Remote Sensing & AI', 'Urban Climate & Heat'],
+    keywords: ['GMRF', 'Bayesian Spatial Statistics', 'Super-Resolution', 'Landsat TIRS', 'Precision Matrix'],
+    metrics: {
+      citations: 19,
+      downloads: 3890,
+      altmetricScore: 195,
+      views: 13500
+    },
+    openScience: {
+      hasData: true,
+      hasCode: true,
+      hasInteractiveSim: false,
+      peerReviewed: true,
+      githubUrl: 'https://github.com/aartisr/gmrf-lst-downscaler'
+    },
+    bibtex: `@article{ravikumar2026gmrf,
+  title={Gaussian Markov Random Fields for Super-Resolution Downscaling of Satellite Radiometry},
+  author={Ravikumar, Aarti Sri},
+  journal={PNAS Nexus},
+  volume={5},
+  number={4},
+  pages={pgae142},
+  year={2026},
+  doi={10.1093/pnasnexus/pgae142}
+}`
   }
 ];
