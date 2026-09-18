@@ -93,7 +93,7 @@ export const InteractiveMathSandbox: React.FC = () => {
               activeTab === 'stomatal' ? 'bg-amber-500 text-slate-950 font-bold' : 'text-slate-400 hover:text-white'
             }`}
           >
-            3. Stomatal $g_s$
+            3. Stomatal Conductance g_s
           </button>
           <button
             onClick={() => setActiveTab('albedo')}

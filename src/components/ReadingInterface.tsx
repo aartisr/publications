@@ -4,11 +4,15 @@ import { documentExportService } from '../services/documentExportService';
 import { ThermalScatterChart } from './charts/ThermalScatterChart';
 import { MetropolitanHeatMap } from './charts/MetropolitanHeatMap';
 import { MitigationSimulator } from './charts/MitigationSimulator';
+import { GovernanceParetoSimulator } from './charts/GovernanceParetoSimulator';
+import { QuadraticVotingInteractive } from './charts/QuadraticVotingInteractive';
+import { MonteCarloRiskInteractive } from './charts/MonteCarloRiskInteractive';
+import { LocalImpactCalculatorInteractive } from './charts/LocalImpactCalculatorInteractive';
 import { GoogleEarthGISExplorer } from './GoogleEarthGISExplorer';
 import { MonographAudioPlayer } from './MonographAudioPlayer';
 import { PeerReviewModal } from './PeerReviewModal';
 import { InteractiveMathSandbox } from './InteractiveMathSandbox';
-import { MathFormula } from './MathFormula';
+import { MathFormula, renderMathInHtml } from './MathFormula';
 import {
   ArrowLeft,
   BookOpen,
@@ -566,7 +570,7 @@ export const ReadingInterface: React.FC<ReadingInterfaceProps> = ({
                   {/* HTML Content */}
                   <div
                     className={`${fontClasses} ${textClasses} text-slate-800`}
-                    dangerouslySetInnerHTML={{ __html: sec.contentHtml }}
+                    dangerouslySetInnerHTML={{ __html: renderMathInHtml(sec.contentHtml) }}
                   />
 
                   {/* Mathematical Formulation Callout */}
@@ -581,7 +585,7 @@ export const ReadingInterface: React.FC<ReadingInterfaceProps> = ({
                   {/* Scholarly Callout Box */}
                   {sec.callout && (
                     <div className={`my-6 p-4 rounded-xl border text-xs sm:text-sm leading-relaxed ${
-                      sec.callout.type === 'key_insight' || sec.callout.type === 'nobel_insight'
+                      sec.callout.type === 'key_insight' || sec.callout.type === 'breakthrough_insight'
                         ? 'bg-amber-50/80 border-amber-300 text-amber-950'
                         : sec.callout.type === 'caution'
                         ? 'bg-red-50/80 border-red-300 text-red-950'
@@ -590,7 +594,7 @@ export const ReadingInterface: React.FC<ReadingInterfaceProps> = ({
                         : 'bg-slate-50 border-slate-300 text-slate-900'
                     }`}>
                       <div className="font-bold flex items-center gap-1.5 mb-1 text-xs uppercase tracking-wider">
-                        {(sec.callout.type === 'key_insight' || sec.callout.type === 'nobel_insight') && <Sparkles className="w-4 h-4 text-amber-700" />}
+                        {(sec.callout.type === 'key_insight' || sec.callout.type === 'breakthrough_insight') && <Sparkles className="w-4 h-4 text-amber-700" />}
                         {sec.callout.type === 'caution' && <AlertTriangle className="w-4 h-4 text-red-700" />}
                         {sec.callout.type === 'policy_impact' && <Lightbulb className="w-4 h-4 text-purple-700" />}
                         {sec.callout.type === 'methodology' && <ShieldCheck className="w-4 h-4 text-slate-700" />}
@@ -600,27 +604,52 @@ export const ReadingInterface: React.FC<ReadingInterfaceProps> = ({
                     </div>
                   )}
 
-                  {/* Interactive Google Earth Multi-Layer GIS Explorer in Section 2 */}
-                  {sec.id === 'sec-data-readiness' && (
+                  {/* Interactive Google Earth Multi-Layer GIS Explorer in Section 2 (Urban Heat) */}
+                  {publication.id === 'pub-urban-heat-01' && sec.id === 'sec-data-readiness' && (
                     <div className="my-8">
                       <GoogleEarthGISExplorer />
                     </div>
                   )}
 
-                  {/* Inline D3 Visualizations */}
-                  {sec.hasD3Chart === 'scatter' && (
+                  {/* Governance Interactive Simulators */}
+                  {publication.id === 'pub-pareto-governance-02' && sec.id === 'sec-pareto-math' && (
+                    <div className="my-8">
+                      <GovernanceParetoSimulator />
+                    </div>
+                  )}
+
+                  {publication.id === 'pub-pareto-governance-02' && sec.id === 'sec-voice-tokens' && (
+                    <div className="my-8">
+                      <QuadraticVotingInteractive />
+                    </div>
+                  )}
+
+                  {publication.id === 'pub-pareto-governance-02' && sec.id === 'sec-impact-model' && (
+                    <div className="my-8">
+                      <LocalImpactCalculatorInteractive />
+                    </div>
+                  )}
+
+                  {publication.id === 'pub-pareto-governance-02' && sec.id === 'sec-monte-carlo' && (
+                    <div className="my-8">
+                      <MonteCarloRiskInteractive />
+                    </div>
+                  )}
+
+                  {/* Inline D3 Visualizations for Urban Heat Paper */}
+                  {publication.id === 'pub-urban-heat-01' && sec.hasD3Chart === 'scatter' && (
                     <div className="my-8">
                       <ThermalScatterChart />
                     </div>
                   )}
 
-                  {sec.hasD3Chart === 'heatmap' && (
+                  {publication.id === 'pub-urban-heat-01' && sec.hasD3Chart === 'heatmap' && (
                     <div className="my-8">
                       <MetropolitanHeatMap />
                     </div>
                   )}
 
-                  {sec.hasD3Chart === 'simulator' && (
+                  {publication.id === 'pub-urban-heat-01' && sec.hasD3Chart === 'simulator' && (
                     <div className="my-8 space-y-8">
                       <InteractiveMathSandbox />
                       <MitigationSimulator />

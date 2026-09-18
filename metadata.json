@@ -1,6 +1,6 @@
 {
-  "name": "Aarti Sri Ravikumar | Academic Publications & Research Archive",
-  "description": "The official academic portfolio, publications, research archive, and interactive empirical dashboards of Aarti Sri Ravikumar, featuring Urban Heat Democratization and planetary resilience computing.",
+  "name": "Aarti Sri Ravikumar – Open Science Archives",
+  "description": "Open-access research repository featuring interactive monographs on game-theoretic digital democracy architecture, Pareto policy optimization, and planetary heat equity.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

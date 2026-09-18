@@ -4,6 +4,9 @@ import { Search, Filter, X, SlidersHorizontal, Sparkles, LayoutGrid, Table, Chec
 interface SearchAndFilterProps {
   searchQuery: string;
   onSearchChange: (query: string) => void;
+  selectedCategory?: string;
+  onCategoryChange?: (category: string) => void;
+  availableCategories?: string[];
   selectedTopic: string;
   onTopicChange: (topic: string) => void;
   selectedType: string;
@@ -28,6 +31,9 @@ interface SearchAndFilterProps {
 export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
   searchQuery,
   onSearchChange,
+  selectedCategory = 'All Research Fields',
+  onCategoryChange,
+  availableCategories = ['All Research Fields', 'Digital Democracy & Game Theory', 'Planetary Equity & Climate Analytics'],
   selectedTopic,
   onTopicChange,
   selectedType,
@@ -64,6 +70,7 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
 
   const isFiltered =
     searchQuery !== '' ||
+    selectedCategory !== 'All Research Fields' ||
     selectedTopic !== 'All Topics' ||
     selectedType !== 'all' ||
     selectedVenue !== 'All Venues' ||
@@ -72,6 +79,28 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
 
   return (
     <div className="bg-white border border-[#E2DCD5] rounded-2xl p-4 sm:p-5 shadow-xs my-8">
+      {/* Category / Research Field Tabs */}
+      {availableCategories && availableCategories.length > 1 && onCategoryChange && (
+        <div className="mb-4 pb-3 border-b border-slate-100 flex flex-wrap items-center gap-2">
+          <span className="text-xs font-mono uppercase tracking-wider text-slate-500 font-bold mr-1">
+            Research Field:
+          </span>
+          {availableCategories.map((cat) => (
+            <button
+              key={cat}
+              onClick={() => onCategoryChange(cat)}
+              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all flex items-center gap-1.5 ${
+                selectedCategory === cat
+                  ? 'bg-amber-900 text-amber-200 shadow-xs'
+                  : 'bg-slate-100 hover:bg-slate-200 text-slate-800'
+              }`}
+            >
+              <span>{cat}</span>
+            </button>
+          ))}
+        </div>
+      )}
+
       {/* Primary Search Input */}
       <div className="relative">
         <Search className="w-5 h-5 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />

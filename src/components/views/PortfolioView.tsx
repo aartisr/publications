@@ -35,6 +35,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
 }) => {
   // Search & Filter State
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('All Research Fields');
   const [selectedTopic, setSelectedTopic] = useState('All Topics');
   const [selectedType, setSelectedType] = useState('all');
   const [selectedVenue, setSelectedVenue] = useState('All Venues');
@@ -44,6 +45,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
   const [viewMode, setViewMode] = useState<'grid' | 'table'>('grid');
 
   // Dynamic Taxonomy & Metrics from Service
+  const availableCategories = useMemo(() => publicationService.getCategories(), []);
   const availableTopics = useMemo(() => publicationService.getTopics(), []);
   const availableVenues = useMemo(() => publicationService.getVenues(), []);
   const availableYears = useMemo(() => publicationService.getYears(), []);
@@ -54,6 +56,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
   const filteredPublications = useMemo(() => {
     return publicationService.filterPublications({
       searchQuery,
+      category: selectedCategory,
       topic: selectedTopic,
       type: selectedType,
       venue: selectedVenue,
@@ -61,10 +64,11 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
       onlyInteractive,
       sortBy
     });
-  }, [searchQuery, selectedTopic, selectedType, selectedVenue, selectedYear, onlyInteractive, sortBy]);
+  }, [searchQuery, selectedCategory, selectedTopic, selectedType, selectedVenue, selectedYear, onlyInteractive, sortBy]);
 
   const handleResetFilters = () => {
     setSearchQuery('');
+    setSelectedCategory('All Research Fields');
     setSelectedTopic('All Topics');
     setSelectedType('all');
     setSelectedVenue('All Venues');
@@ -134,7 +138,7 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
         <GlobalCommunityBanner onOpenGlobalCommunity={onOpenGlobalCommunity} />
 
         {/* Featured Landmark Paper Spotlight (Only shown when not actively filtering) */}
-        {!searchQuery && selectedTopic === 'All Topics' && selectedType === 'all' && (
+        {!searchQuery && selectedCategory === 'All Research Fields' && selectedTopic === 'All Topics' && selectedType === 'all' && (
           <FeaturedSpotlight
             publication={featuredPublication}
             onRead={onReadPublication}
@@ -161,6 +165,9 @@ export const PortfolioView: React.FC<PortfolioViewProps> = ({
           <SearchAndFilter
             searchQuery={searchQuery}
             onSearchChange={setSearchQuery}
+            selectedCategory={selectedCategory}
+            onCategoryChange={setSelectedCategory}
+            availableCategories={availableCategories}
             selectedTopic={selectedTopic}
             onTopicChange={setSelectedTopic}
             selectedType={selectedType}

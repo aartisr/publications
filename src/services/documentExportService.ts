@@ -440,7 +440,7 @@ ER  - `;
             background: #f1f5f9;
             border-left: 4px solid #475569;
           }
-          .callout-key_insight, .callout-nobel_insight {
+          .callout-key_insight, .callout-breakthrough_insight {
             background: #fefce8;
             border-left-color: #ca8a04;
           }

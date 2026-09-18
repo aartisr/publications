@@ -104,21 +104,21 @@ export const TOP_10_BENCHMARKS: BenchmarkComparison[] = [
     ourAdoptedMotivation: 'Adopted the "In Brief" executive callouts, author CRediT contributions, and reproducible methods framework.'
   },
   {
-    name: 'NobelPrize.org',
-    institutionOrPublisher: 'Nobel Foundation & Royal Swedish Academy of Sciences',
-    url: 'https://www.nobelprize.org',
-    archetype: 'Archival Monument to Humanity\'s Greatest Discoveries',
-    badge: 'Nobel Laureate Archive',
+    name: 'RoyalSociety.org',
+    institutionOrPublisher: 'The Royal Society (London)',
+    url: 'https://royalsocietypublishing.org',
+    archetype: 'Archival Monument to Scientific Discovery',
+    badge: 'Royal Society Archive',
     keyDesignFeatures: [
-      'Deep ceremonial dark navy and warm burnished gold aesthetic evoking timeless prestige',
-      'Biographical laureate profile integrating original award speech, scientific backgrounder, and press release',
+      'Deep ceremonial dark navy and warm burnished gold aesthetic evoking timeless scientific heritage',
+      'Biographical researcher profile integrating original papers, scientific backgrounders, and press releases',
       'Archival facsimile reproduction alongside modern responsive transcripts and media',
       'Clear articulation of human societal impact and foundational paradigm shifts'
     ],
-    typographicPhilosophy: 'Regal serif typography (Nobel Serif / Garamond) with generous letter spacing, classical optical proportions, and gold rule dividers.',
+    typographicPhilosophy: 'Regal serif typography (Garamond / Georgia) with generous letter spacing, classical optical proportions, and gold rule dividers.',
     dataVisualizationApproach: 'Conceptual breakthrough diagrams illustrating revolutionary mechanisms of discovery with immaculate clarity.',
     readingExperience: 'Reverent, inspirational, and deeply scholarly, framing rigorous research within the broader arc of human civilizational progress.',
-    ourAdoptedMotivation: 'Guided the visual palette of our platform: deep academic navy (`#0A192F`), warm parchment canvas, burnished gold accents, and Nobel-cadre impact framing.'
+    ourAdoptedMotivation: 'Guided the visual palette of our platform: deep academic navy (`#0A192F`), warm parchment canvas, burnished gold accents, and institutional impact framing.'
   },
   {
     name: 'IEEE Xplore',

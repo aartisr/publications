@@ -3,6 +3,7 @@ export interface Publication {
   title: string;
   subtitle?: string;
   slug: string;
+  category: string; // E.g., 'Digital Democracy & Game Theory', 'Planetary Equity & Climate Analytics'
   authors: {
     name: string;
     isPrimary: boolean;
@@ -49,7 +50,7 @@ export interface Publication {
       contentHtml: string;
       hasD3Chart?: 'scatter' | 'heatmap' | 'simulator';
       callout?: {
-        type: 'methodology' | 'key_insight' | 'nobel_insight' | 'policy_impact' | 'caution';
+        type: 'methodology' | 'key_insight' | 'breakthrough_insight' | 'policy_impact' | 'caution';
         title: string;
         text: string;
       };

@@ -9,29 +9,37 @@ import {
   Sparkles,
   Sigma,
   Globe,
-  Heart,
   ChevronDown,
   Menu,
   X,
-  FileText,
-  ShieldCheck,
-  Zap,
-  Download
+  Download,
+  Sliders,
+  ShieldCheck
 } from 'lucide-react';
+import { Publication } from '../types';
+import { PublicationSwitcher } from './navbar/PublicationSwitcher';
+import { LiveAppsMenu } from './navbar/LiveAppsMenu';
 
 interface NavbarProps {
+  publications: Publication[];
+  selectedPublication: Publication;
+  onSelectPublication: (pub: Publication) => void;
   onOpenBenchmarks: () => void;
   onOpenArchitecture: () => void;
   onOpenMathDeepDive: () => void;
   onOpenSubscribe: () => void;
   onOpenDiscoverability: () => void;
   onOpenGlobalCommunity: (tab?: 'world-impact' | 'translations' | 'action-kit' | 'sdgs' | 'amplifier') => void;
-  onOpenDownload?: () => void;
+  onOpenDownload?: (pub?: Publication) => void;
+  onOpenAiAssistant?: () => void;
   activeView: 'portfolio' | 'reader';
   onToggleView: (view: 'portfolio' | 'reader') => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
+  publications,
+  selectedPublication,
+  onSelectPublication,
   onOpenBenchmarks,
   onOpenArchitecture,
   onOpenMathDeepDive,
@@ -39,6 +47,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onOpenDiscoverability,
   onOpenGlobalCommunity,
   onOpenDownload,
+  onOpenAiAssistant,
   activeView,
   onToggleView
 }) => {
@@ -67,18 +76,24 @@ export const Navbar: React.FC<NavbarProps> = ({
     };
   }, []);
 
+  const handleSelectPaperAndRead = (pub: Publication) => {
+    onSelectPublication(pub);
+    onToggleView('reader');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
   return (
     <header className="sticky top-0 z-40 bg-[#FAF8F5]/95 backdrop-blur-md border-b border-[#E2DCD5] transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 sm:h-20">
+        <div className="flex items-center justify-between h-16 sm:h-20 gap-3">
           
-          {/* Brand / Scholarly Identity */}
-          <div className="flex items-center gap-3">
+          {/* Brand / Scholarly Identity (Generic & Peer-Reviewed) */}
+          <div className="flex items-center gap-3 shrink-0">
             <button
               onClick={() => onToggleView('portfolio')}
               className="text-left group flex items-center gap-2.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 rounded-lg p-1"
             >
-              <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#0B192C] text-amber-400 flex items-center justify-center font-serif font-bold text-sm sm:text-base border border-amber-500/40 shadow-xs transition-transform group-hover:scale-105">
+              <span className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#0B192C] text-amber-400 flex items-center justify-center font-serif font-bold text-sm sm:text-base border border-amber-500/40 shadow-xs transition-transform group-hover:scale-105 shrink-0">
                 ASR
               </span>
               <div>
@@ -86,57 +101,51 @@ export const Navbar: React.FC<NavbarProps> = ({
                   Aarti Sri Ravikumar
                 </h1>
                 <p className="text-[10px] sm:text-[11px] font-sans text-slate-500 tracking-wider uppercase font-medium">
-                  Planetary Resilience • Urban Heat Archive
+                  Open Science Archives • Computational Policy
                 </p>
               </div>
             </button>
           </div>
 
-          {/* Desktop Navigation Group (Clean, Uncrowded & Sophisticated) */}
-          <nav className="hidden lg:flex items-center gap-3" aria-label="Main Navigation">
-            {/* View Switcher / Portfolio Button */}
+          {/* Desktop Navigation Controls */}
+          <nav className="hidden lg:flex items-center gap-2" aria-label="Main Navigation">
+            {/* View Switcher: Back to All Papers */}
             {activeView === 'reader' && (
               <button
                 onClick={() => onToggleView('portfolio')}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold transition-colors"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-colors border border-slate-300/80"
               >
-                <BookOpen className="w-3.5 h-3.5" />
-                <span>All Publications</span>
+                <BookOpen className="w-3.5 h-3.5 text-amber-800" />
+                <span>All Papers</span>
               </button>
             )}
 
-            {/* Global Community & Universal Access (Primary Mission) */}
+            {/* Publication Switcher Dropdown Component */}
+            <PublicationSwitcher
+              publications={publications}
+              selectedPublication={selectedPublication}
+              onSelectPublication={handleSelectPaperAndRead}
+              onOpenDownload={onOpenDownload}
+            />
+
+            {/* Live Web Applications Dropdown */}
+            <LiveAppsMenu />
+
+            {/* Global Community Hub Button */}
             <button
               onClick={() => onOpenGlobalCommunity('world-impact')}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-teal-50 hover:bg-teal-100/90 text-teal-950 border border-teal-300 text-xs font-bold transition-all shadow-2xs group"
-              title="Explore 10-language translations, global metro data, and grassroots civic action kits"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-950 border border-emerald-300/80 text-xs font-semibold transition-all shadow-2xs group"
+              title="10-language translations, global metro data, and grassroots civic action kits"
             >
-              <Globe className="w-3.5 h-3.5 text-teal-700 group-hover:rotate-12 transition-transform" />
-              <span>Global Community</span>
-              <span className="px-1.5 py-0.2 rounded-full bg-teal-200 text-teal-900 text-[10px] font-mono font-bold">10 Langs</span>
+              <Globe className="w-3.5 h-3.5 text-emerald-700 group-hover:rotate-12 transition-transform" />
+              <span>Community</span>
             </button>
 
-            {/* Direct 3D Google Earth GIS Map Button */}
-            <button
-              onClick={() => {
-                if (activeView !== 'reader') onToggleView('reader');
-                setTimeout(() => {
-                  const el = document.getElementById('sec-data-readiness');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }, 120);
-              }}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-emerald-800 hover:bg-emerald-900 text-white text-xs font-bold transition-all shadow-2xs group"
-              title="Jump directly to the 3D Google Earth & Multi-Layer GIS Explorer"
-            >
-              <Layers className="w-3.5 h-3.5 text-emerald-300" />
-              <span>3D GIS Map</span>
-            </button>
-
-            {/* Research Dossiers Dropdown (Consolidates 4 deep-dive modules) */}
+            {/* Research Dossiers Dropdown */}
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={() => setIsDossiersOpen(!isDossiersOpen)}
-                className={`inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg text-xs font-semibold border transition-all ${
+                className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-semibold border transition-all ${
                   isDossiersOpen
                     ? 'bg-slate-900 text-amber-300 border-slate-900 shadow-xs'
                     : 'bg-white hover:bg-slate-50 text-slate-800 border-slate-300 shadow-2xs'
@@ -145,7 +154,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 aria-haspopup="true"
               >
                 <Sparkles className="w-3.5 h-3.5 text-amber-600" />
-                <span>Research Dossiers</span>
+                <span>Dossiers</span>
                 <ChevronDown className={`w-3.5 h-3.5 text-slate-400 transition-transform ${isDossiersOpen ? 'rotate-180 text-amber-300' : ''}`} />
               </button>
 
@@ -156,7 +165,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                     <span className="text-[11px] font-mono uppercase tracking-wider text-slate-500 font-bold">
                       Theoretical & Design Dossiers
                     </span>
-                    <span className="text-[10px] font-mono text-emerald-800 font-bold bg-emerald-50 px-2 py-0.5 rounded-md border border-emerald-200">
+                    <span className="text-[10px] font-mono text-emerald-800 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">
                       Peer-Reviewed
                     </span>
                   </div>
@@ -175,10 +184,10 @@ export const Navbar: React.FC<NavbarProps> = ({
                       </div>
                       <div className="flex-1 min-w-0">
                         <div className="text-xs font-bold text-slate-900 flex items-center gap-1.5">
-                          <span>Spectral Math & Graph Proofs</span>
+                          <span>Spectral Math & Game Theory</span>
                         </div>
                         <p className="text-[11px] text-slate-500 line-clamp-1 mt-0.5">
-                          Laplacian calculus, Cheeger bounds & percolation limits
+                          Laplacian calculus, Cheeger bounds & Pareto frontiers
                         </p>
                       </div>
                     </button>
@@ -221,7 +230,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                           Top 10 Scientific Journals Benchmark
                         </div>
                         <p className="text-[11px] text-slate-500 line-clamp-1 mt-0.5">
-                          Nature, Science, Cell & IEEE design standard comparison
+                          Nature, Science, Cell & IEEE design standards
                         </p>
                       </div>
                     </button>
@@ -253,46 +262,35 @@ export const Navbar: React.FC<NavbarProps> = ({
           </nav>
 
           {/* Right Action Icons & Subscribe CTA */}
-          <div className="hidden sm:flex items-center gap-2.5">
-            {/* Download Monograph Button */}
-            {onOpenDownload && (
+          <div className="hidden sm:flex items-center gap-2">
+            {/* AI Scholarly Co-Pilot Drawer Trigger */}
+            {onOpenAiAssistant && (
               <button
-                onClick={onOpenDownload}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-100 hover:bg-amber-200 text-amber-950 border border-amber-300 text-xs font-bold transition-all shadow-2xs group"
-                title="Download Research Monograph in top 3 formats (PDF, Markdown, BibTeX)"
+                onClick={onOpenAiAssistant}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-950 border border-amber-300/80 text-xs font-bold transition-all shadow-2xs group"
+                title="Launch AI Scholarly Co-Pilot & Q&A Assistant"
               >
-                <Download className="w-3.5 h-3.5 text-amber-800 group-hover:translate-y-0.5 transition-transform" />
-                <span>Download Monograph</span>
+                <Sparkles className="w-3.5 h-3.5 text-amber-600 group-hover:rotate-12 transition-transform" />
+                <span>AI Co-Pilot</span>
               </button>
             )}
 
-            {/* Live Interactive Platform */}
-            <a
-              href="https://urban-heat.ai-aarti.com/"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 text-xs font-medium transition-colors shadow-2xs"
-              title="Visit live interactive platform at urban-heat.ai-aarti.com"
-            >
-              <span>urban-heat.ai-aarti.com</span>
-              <ExternalLink className="w-3 h-3 text-slate-400" />
-            </a>
-
-            {/* GitHub Code Repo */}
-            <a
-              href="https://github.com/aartisr/urban-heat-democratization"
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center justify-center w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 transition-colors"
-              title="GitHub: aartisr/urban-heat-democratization"
-            >
-              <Code className="w-4 h-4" />
-            </a>
+            {/* Download Monograph Button */}
+            {onOpenDownload && (
+              <button
+                onClick={() => onOpenDownload(selectedPublication)}
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-100/90 hover:bg-amber-200/90 text-amber-950 border border-amber-300/80 text-xs font-semibold transition-all shadow-2xs group"
+                title="Download Research Monograph in top formats (PDF, Markdown, BibTeX)"
+              >
+                <Download className="w-3.5 h-3.5 text-amber-800 group-hover:translate-y-0.5 transition-transform" />
+                <span>Reprints</span>
+              </button>
+            )}
 
             {/* Subscribe Action */}
             <button
               onClick={onOpenSubscribe}
-              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-[#0B192C] hover:bg-slate-800 text-amber-300 text-xs font-semibold shadow-xs transition-all"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[#0B192C] hover:bg-slate-800 text-amber-300 text-xs font-bold shadow-xs transition-all"
             >
               <Bell className="w-3.5 h-3.5 text-amber-400" />
               <span>Subscribe</span>
@@ -303,21 +301,13 @@ export const Navbar: React.FC<NavbarProps> = ({
           <div className="flex items-center gap-2 lg:hidden">
             {onOpenDownload && (
               <button
-                onClick={onOpenDownload}
+                onClick={() => onOpenDownload(selectedPublication)}
                 className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-amber-100 border border-amber-300 text-amber-950 text-xs font-bold shadow-2xs"
               >
                 <Download className="w-3 h-3 text-amber-800" />
                 <span>PDF/MD</span>
               </button>
             )}
-
-            <button
-              onClick={onOpenSubscribe}
-              className="sm:hidden inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-[#0B192C] text-amber-300 text-xs font-semibold shadow-xs"
-            >
-              <Bell className="w-3 h-3 text-amber-400" />
-              <span>Alerts</span>
-            </button>
 
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -331,36 +321,42 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
       </div>
 
-      {/* Mobile Menu Overlay Drawer */}
+      {/* Mobile Menu Drawer */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden border-t border-slate-200 bg-[#FAF8F5] px-4 pt-3 pb-6 space-y-3 animate-in fade-in slide-in-from-top-4 duration-200 shadow-xl">
-          <div className="grid grid-cols-3 gap-2 pt-1">
+        <div className="lg:hidden border-t border-slate-200 bg-[#FAF8F5] px-4 pt-3 pb-6 space-y-4 animate-in fade-in slide-in-from-top-4 duration-200 shadow-xl max-h-[85vh] overflow-y-auto">
+          {/* Active Publication Quick Switcher on Mobile */}
+          <div className="p-3 bg-white rounded-2xl border border-slate-200 space-y-2">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-bold block">
+              Active Monograph
+            </span>
+            <div className="text-xs font-serif font-bold text-slate-900">
+              {selectedPublication.title}
+            </div>
+            <div className="flex items-center gap-2 pt-1">
+              <button
+                onClick={() => {
+                  setIsMobileMenuOpen(false);
+                  onToggleView('portfolio');
+                }}
+                className="flex-1 py-1.5 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold text-center border border-slate-300"
+              >
+                Browse All Papers ({publications.length})
+              </button>
+            </div>
+          </div>
+
+          {/* Quick Action Buttons */}
+          <div className="grid grid-cols-2 gap-2">
             <button
               onClick={() => {
                 setIsMobileMenuOpen(false);
                 onOpenGlobalCommunity('world-impact');
               }}
-              className="flex flex-col items-start p-2.5 rounded-xl bg-teal-50 border border-teal-200 text-teal-950"
+              className="flex flex-col items-start p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-950"
             >
-              <Globe className="w-4 h-4 text-teal-700 mb-1" />
-              <span className="text-[11px] font-bold">Global</span>
-              <span className="text-[9px] text-teal-700 font-mono">10 Langs</span>
-            </button>
-
-            <button
-              onClick={() => {
-                setIsMobileMenuOpen(false);
-                if (activeView !== 'reader') onToggleView('reader');
-                setTimeout(() => {
-                  const el = document.getElementById('sec-data-readiness');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }, 120);
-              }}
-              className="flex flex-col items-start p-2.5 rounded-xl bg-emerald-800 text-white"
-            >
-              <Layers className="w-4 h-4 text-emerald-300 mb-1" />
-              <span className="text-[11px] font-bold">3D GIS</span>
-              <span className="text-[9px] text-emerald-200 font-mono">Map View</span>
+              <Globe className="w-4 h-4 text-emerald-700 mb-1" />
+              <span className="text-xs font-bold">Global Community</span>
+              <span className="text-[10px] text-emerald-700 font-mono">10 Languages</span>
             </button>
 
             <button
@@ -368,85 +364,101 @@ export const Navbar: React.FC<NavbarProps> = ({
                 setIsMobileMenuOpen(false);
                 onOpenDiscoverability();
               }}
-              className="flex flex-col items-start p-2.5 rounded-xl bg-slate-100 border border-slate-200 text-slate-900"
+              className="flex flex-col items-start p-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-950"
             >
-              <Sparkles className="w-4 h-4 text-emerald-700 mb-1" />
-              <span className="text-[11px] font-bold">AI & SEO</span>
-              <span className="text-[9px] text-slate-500 font-mono">Discover</span>
+              <Sparkles className="w-4 h-4 text-amber-700 mb-1" />
+              <span className="text-xs font-bold">AI Citations</span>
+              <span className="text-[10px] text-amber-800 font-mono">Schema.org JSON-LD</span>
             </button>
           </div>
 
-          <div className="bg-white rounded-2xl p-2 border border-slate-200 space-y-1">
+          {/* Live Interactive Web Apps section */}
+          <div className="p-3 bg-white rounded-2xl border border-slate-200 space-y-2">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-bold flex items-center justify-between">
+              <span>Live Interactive Web Apps</span>
+              <span className="text-teal-800 bg-teal-50 px-1.5 py-0.2 rounded font-bold">3 Verified</span>
+            </span>
+            <div className="space-y-1.5 text-xs">
+              <a
+                href="https://governanceapp.ai-aarti.com/"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center justify-between p-2 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-900 border border-slate-200 font-medium"
+              >
+                <span>Civic Accord (Governance App)</span>
+                <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
+              </a>
+              <a
+                href="https://urban-heat.ai-aarti.com/"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center justify-between p-2 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-900 border border-slate-200 font-medium"
+              >
+                <span>Urban Heat Island Platform</span>
+                <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
+              </a>
+              <a
+                href="https://publications.ai-aarti.com/"
+                target="_blank"
+                rel="noreferrer"
+                className="flex items-center justify-between p-2 rounded-lg bg-slate-50 hover:bg-slate-100 text-slate-900 border border-slate-200 font-medium"
+              >
+                <span>Open Research Repository</span>
+                <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
+              </a>
+            </div>
+          </div>
+
+          {/* Theoretical Dossiers */}
+          <div className="space-y-1 pt-1">
+            <div className="text-[10px] font-mono uppercase tracking-wider text-slate-500 font-bold px-1">
+              Research Dossiers & Benchmarks
+            </div>
             <button
               onClick={() => {
                 setIsMobileMenuOpen(false);
                 onOpenMathDeepDive();
               }}
-              className="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-amber-50 text-left text-xs font-bold text-slate-900"
+              className="w-full text-left p-2.5 rounded-xl bg-white border border-slate-200 text-xs font-bold text-slate-900 flex items-center justify-between"
             >
-              <div className="flex items-center gap-2">
-                <Sigma className="w-4 h-4 text-amber-800" />
-                <span>Spectral Math & Proofs</span>
-              </div>
-              <span className="text-[10px] text-amber-800 font-mono bg-amber-100 px-2 py-0.5 rounded">Defense</span>
+              <span>Spectral Math & Game Theory Proofs</span>
+              <Sigma className="w-4 h-4 text-amber-700" />
             </button>
-
             <button
               onClick={() => {
                 setIsMobileMenuOpen(false);
                 onOpenBenchmarks();
               }}
-              className="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-50 text-left text-xs font-semibold text-slate-800"
+              className="w-full text-left p-2.5 rounded-xl bg-white border border-slate-200 text-xs font-bold text-slate-900 flex items-center justify-between"
             >
-              <div className="flex items-center gap-2">
-                <Award className="w-4 h-4 text-amber-700" />
-                <span>Top 10 Journals Study</span>
-              </div>
-              <span className="text-[10px] text-slate-500 font-mono">Nature/IEEE</span>
+              <span>Top 10 Journals Benchmark Study</span>
+              <Award className="w-4 h-4 text-amber-700" />
             </button>
-
             <button
               onClick={() => {
                 setIsMobileMenuOpen(false);
                 onOpenArchitecture();
               }}
-              className="w-full flex items-center justify-between p-2.5 rounded-xl hover:bg-slate-50 text-left text-xs font-semibold text-slate-800"
+              className="w-full text-left p-2.5 rounded-xl bg-white border border-slate-200 text-xs font-bold text-slate-900 flex items-center justify-between"
             >
-              <div className="flex items-center gap-2">
-                <Layers className="w-4 h-4 text-slate-600" />
-                <span>Dashboard Architecture</span>
-              </div>
-              <span className="text-[10px] text-slate-500 font-mono">Blueprint</span>
+              <span>Metropolitan Architecture Blueprint</span>
+              <Layers className="w-4 h-4 text-slate-700" />
             </button>
           </div>
 
-          {/* External Links & Subscribe */}
-          <div className="pt-2 flex flex-col gap-2">
-            <a
-              href="https://urban-heat.ai-aarti.com/"
-              target="_blank"
-              rel="noreferrer"
-              className="w-full flex items-center justify-center gap-2 p-2.5 rounded-xl bg-white border border-slate-300 text-xs font-semibold text-slate-800 shadow-2xs"
-            >
-              <Globe className="w-3.5 h-3.5 text-slate-500" />
-              <span>urban-heat.ai-aarti.com</span>
-              <ExternalLink className="w-3 h-3 text-slate-400" />
-            </a>
-
-            <button
-              onClick={() => {
-                setIsMobileMenuOpen(false);
-                onOpenSubscribe();
-              }}
-              className="w-full flex items-center justify-center gap-2 p-2.5 rounded-xl bg-[#0B192C] text-amber-300 text-xs font-bold shadow-sm"
-            >
-              <Bell className="w-3.5 h-3.5 text-amber-400" />
-              <span>Subscribe for Research Releases</span>
-            </button>
-          </div>
+          {/* Subscribe CTA on Mobile */}
+          <button
+            onClick={() => {
+              setIsMobileMenuOpen(false);
+              onOpenSubscribe();
+            }}
+            className="w-full py-3 rounded-xl bg-[#0B192C] text-amber-300 font-bold text-xs flex items-center justify-center gap-2 shadow-md"
+          >
+            <Bell className="w-4 h-4 text-amber-400" />
+            <span>Subscribe to Research Updates</span>
+          </button>
         </div>
       )}
     </header>
   );
 };
-

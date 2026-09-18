@@ -1,11 +1,14 @@
 import { Publication } from '../types';
+import { GOVERNANCE_PUBLICATION } from './governanceData';
 
 export const PUBLICATIONS_DATA: Publication[] = [
+  GOVERNANCE_PUBLICATION,
   {
     id: 'pub-urban-heat-01',
     title: 'Democratizing Urban Heat Island Analytics: High-Resolution Thermal Disparity Mapping, Canopy Equity, and Benchmark-Guided Mitigation Scenarios in Metropolitan Microclimates',
     subtitle: 'A Comprehensive Research Monograph on Planetary Resilience Computing, Multi-Sensor Satellite Radiometry Downscaling, and Transparent Community Mitigation Frameworks',
     slug: 'urban-heat-democratization',
+    category: 'Planetary Equity & Climate Analytics',
     authors: [
       {
         name: 'Aarti Sri Ravikumar',
@@ -156,7 +159,7 @@ export const PUBLICATIONS_DATA: Publication[] = [
             explanation: 'Where $R_n$ is net radiation, $\\alpha$ is surface albedo, $S_\\downarrow$ is incoming shortwave solar radiation, $L_\\downarrow$ is downwelling longwave atmospheric radiation, $\\varepsilon$ is surface emissivity, $\\sigma = 5.67\\times 10^{-8}\\text{ W}/(\\text{m}^2\\cdot\\text{K}^4)$ is the Stefan-Boltzmann constant, $H$ is sensible heat flux heating the ambient air, $LE$ is latent heat flux from evapotranspiration, and $G$ is conduction into the urban thermal mass.'
           },
           callout: {
-            type: 'nobel_insight',
+            type: 'breakthrough_insight',
             title: 'Thermodynamic Bowen Ratio',
             text: 'In tree-rich corridors, the Bowen ratio (β = H / LE) is low (<0.4), indicating that most incoming solar energy is safely consumed by vegetative water vaporization. In paved asphalt corridors, β exceeds 3.5, dumping almost all solar energy directly into sensible air heating.'
           }
@@ -270,6 +273,7 @@ export const PUBLICATIONS_DATA: Publication[] = [
     title: 'Autonomous Spectral Sensor Swarms for Hyper-Local Planetary Boundary Monitoring',
     subtitle: 'Edge-Inference Algorithms for Low-Altitude Unmanned Aerial Vehicles in Heterogeneous Thermal and Aerosol Fields',
     slug: 'autonomous-spectral-swarms',
+    category: 'Planetary Equity & Climate Analytics',
     authors: [
       {
         name: 'Aarti Sri Ravikumar',
@@ -320,6 +324,7 @@ export const PUBLICATIONS_DATA: Publication[] = [
     title: 'The National Metropolitan Microclimate Democratization Infrastructure (NMMDI)',
     subtitle: 'A Multi-Agency Framework for Open Satellite Downscaling, IoT Sensor Calibration, and Participatory Heat Resilience',
     slug: 'grant-proposal-nmmdi',
+    category: 'Planetary Equity & Climate Analytics',
     authors: [
       {
         name: 'Aarti Sri Ravikumar',
@@ -361,6 +366,7 @@ export const PUBLICATIONS_DATA: Publication[] = [
     title: 'Percolation Phase Transitions in Urban Canopy Networks',
     subtitle: 'Nonlinear Thermodynamic Attenuation of Heatwaves through Topologically Connected Tree Corridors',
     slug: 'percolation-canopy-networks',
+    category: 'Planetary Equity & Climate Analytics',
     authors: [
       {
         name: 'Aarti Sri Ravikumar',
@@ -406,6 +412,7 @@ export const PUBLICATIONS_DATA: Publication[] = [
     title: 'Municipal Cooling Equity Action Memo: Translating Satellite Data into Capital Budgets',
     subtitle: 'A Decision Framework for City Councils, Public Works, and Environmental Justice Coalitions',
     slug: 'cooling-equity-action-memo',
+    category: 'Planetary Equity & Climate Analytics',
     authors: [
       {
         name: 'Aarti Sri Ravikumar',
@@ -447,6 +454,7 @@ export const PUBLICATIONS_DATA: Publication[] = [
     title: 'Spectral Graph Laplacians & Cheeger Bounds for Urban Heat Bottleneck Identification',
     subtitle: 'Polynomial-Time Isoperimetric Cuts on Weighted Street Manifolds for Optimal Shade Corridors',
     slug: 'spectral-graph-cheeger-cuts',
+    category: 'Planetary Equity & Climate Analytics',
     authors: [
       {
         name: 'Aarti Sri Ravikumar',
@@ -491,6 +499,7 @@ export const PUBLICATIONS_DATA: Publication[] = [
     title: 'Gaussian Markov Random Fields for Super-Resolution Downscaling of Satellite Radiometry',
     subtitle: 'Exact Bayesian Spatial Inference on Landsat-9 and ECOSTRESS Multi-Sensor Manifolds',
     slug: 'gmrf-super-resolution-satellite',
+    category: 'Planetary Equity & Climate Analytics',
     authors: [
       {
         name: 'Aarti Sri Ravikumar',

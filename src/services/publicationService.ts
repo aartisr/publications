@@ -3,6 +3,7 @@ import { PUBLICATIONS_DATA } from '../data/publications';
 
 export interface PublicationFilterOptions {
   searchQuery?: string;
+  category?: string;
   topic?: string;
   type?: string;
   venue?: string;
@@ -55,6 +56,25 @@ class PublicationService {
       this.publications.find((p) => p.id === 'pub-urban-heat-01') ||
       this.publications[0]
     );
+  }
+
+  /**
+   * Dynamically extract all unique research categories across all registered publications
+   */
+  public getCategories(): string[] {
+    const catSet = new Set<string>();
+    this.publications.forEach((pub) => {
+      if (pub.category) catSet.add(pub.category);
+    });
+    return ['All Research Fields', ...Array.from(catSet).sort()];
+  }
+
+  /**
+   * Filter publications by category
+   */
+  public getByCategory(category: string): Publication[] {
+    if (!category || category === 'All Research Fields') return this.publications;
+    return this.publications.filter((p) => p.category === category);
   }
 
   /**
@@ -132,6 +152,7 @@ class PublicationService {
   public filterPublications(options: PublicationFilterOptions): Publication[] {
     const {
       searchQuery = '',
+      category = 'All Research Fields',
       topic = 'All Topics',
       type = 'all',
       venue = 'All Venues',
@@ -144,6 +165,10 @@ class PublicationService {
     const query = searchQuery.trim().toLowerCase();
 
     const filtered = this.publications.filter((pub) => {
+      // Category Filter
+      if (category !== 'All Research Fields' && pub.category !== category) {
+        return false;
+      }
       // Free-text fuzzy search across all key publication fields
       if (query) {
         const matchesTitle = pub.title.toLowerCase().includes(query);

@@ -163,3 +163,74 @@ export const RenderMathText: React.FC<{ text: string }> = ({ text }) => {
 
   return <p className="leading-relaxed">{parts}</p>;
 };
+
+/**
+ * Processes an HTML string and converts math expressions ($...$, $$...$$, and centered math formula blocks)
+ * into KaTeX rendered HTML strings.
+ */
+export function renderMathInHtml(html: string): string {
+  if (!html) return '';
+
+  let processed = html;
+
+  // 1. Process centered formula block paragraphs like:
+  // <p class="font-mono text-slate-800 bg-slate-100 p-3 rounded-lg text-center mb-4 border border-slate-200">
+  //   U_g(a) \in [0, 1] \quad \forall g \in G
+  // </p>
+  processed = processed.replace(
+    /<p([^>]*)class="([^"]*font-mono[^"]*)"([^>]*)>\s*([\s\S]*?)\s*<\/p>/gi,
+    (match, _p1, _p2, _p3, formulaText) => {
+      const cleanedFormula = formulaText
+        .trim()
+        .replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&amp;/g, '&');
+      const isLatex = /[\\[\]{}_^\\=\in\quad\min\max\frac\sum\prod\operatorname\alpha-\omega]/i.test(cleanedFormula);
+      if (isLatex) {
+        try {
+          const katexHtml = katex.renderToString(cleanedFormula, {
+            displayMode: true,
+            throwOnError: false,
+            strict: false
+          });
+          return `<div class="my-4 p-4 rounded-xl bg-slate-100/90 border border-slate-200 text-center shadow-2xs overflow-x-auto font-serif text-slate-900">${katexHtml}</div>`;
+        } catch (e) {
+          console.warn('KaTeX block rendering error:', e);
+        }
+      }
+      return match;
+    }
+  );
+
+  // 2. Process double dollar $$...$$ display math blocks
+  processed = processed.replace(/\$\$([\s\S]+?)\$\$/g, (_, math) => {
+    try {
+      return katex.renderToString(math.trim(), {
+        displayMode: true,
+        throwOnError: false,
+        strict: false
+      });
+    } catch (e) {
+      return math;
+    }
+  });
+
+  // 3. Process single dollar $...$ inline math tokens
+  processed = processed.replace(/\$([^$\n<>]+)\$/g, (match, math) => {
+    const trimmed = math.trim();
+    if (!trimmed) return match;
+    try {
+      const rendered = katex.renderToString(trimmed, {
+        displayMode: false,
+        throwOnError: false,
+        strict: false
+      });
+      return `<span class="inline-block px-0.5 text-slate-900 font-serif align-baseline">${rendered}</span>`;
+    } catch (e) {
+      console.warn('KaTeX inline rendering error:', e);
+      return match;
+    }
+  });
+
+  return processed;
+}

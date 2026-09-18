@@ -28,11 +28,14 @@ export const AuthorProfileBanner: React.FC<AuthorProfileBannerProps> = ({
               <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-bold bg-rose-50 text-rose-900 border border-rose-300">
                 <Heart className="w-3.5 h-3.5 text-rose-600 fill-rose-500" /> For the Love of Community
               </span>
+              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-purple-100/80 text-purple-900 border border-purple-300">
+                <Sparkles className="w-3.5 h-3.5 text-purple-700" /> Digital Democracy & Game Theory
+              </span>
               <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-semibold bg-amber-100/80 text-amber-900 border border-amber-300">
-                <Sparkles className="w-3.5 h-3.5 text-amber-700" /> Computational Earth Systems & Microclimates
+                <Sparkles className="w-3.5 h-3.5 text-amber-700" /> Planetary Equity & Microclimates
               </span>
               <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-semibold bg-emerald-100/80 text-emerald-900 border border-emerald-300">
-                100% Open Access & Code
+                100% Open Access & Verified Code
               </span>
             </div>
 
@@ -45,7 +48,7 @@ export const AuthorProfileBanner: React.FC<AuthorProfileBannerProps> = ({
             </div>
 
             <p className="mt-4 text-slate-700 leading-relaxed text-sm sm:text-base font-sans max-w-2xl">
-              Championing planetary equity and urban heat resilience for the love of vulnerable communities worldwide. Pioneering computational earth systems, satellite radiometry downscaling, and spectral graph Laplacians that equip grassroots advocates, youth climate leaders, and municipal organizers with audit-grade, paywall-free scientific proof.
+              Pioneering open-access research at the intersection of game-theoretic digital democracy architecture, multi-objective Pareto policy optimization, planetary thermal equity, satellite radiometry downscaling, and spectral graph Laplacians. Equipping grassroots advocates, municipal leaders, and mentors with audit-grade, paywall-free scientific proof.
             </p>
 
             {/* Academic Badges & Direct Actions */}
@@ -82,23 +85,26 @@ export const AuthorProfileBanner: React.FC<AuthorProfileBannerProps> = ({
                 <span>Top 10 Journals Study</span>
               </button>
 
-              <button
-                onClick={onOpenArchitecture}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-xs transition-all"
+              <a
+                href="https://governanceapp.ai-aarti.com/"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-purple-50 hover:bg-purple-100 text-purple-950 border border-purple-300 text-xs font-semibold shadow-2xs transition-all"
               >
-                <Layers className="w-4 h-4 text-amber-400" />
-                <span>Metropolitan Architecture</span>
-              </button>
+                <Globe className="w-3.5 h-3.5 text-purple-700" />
+                <span>governanceapp.ai-aarti.com</span>
+                <ExternalLink className="w-3 h-3 text-purple-400" />
+              </a>
 
               <a
                 href="https://urban-heat.ai-aarti.com/"
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white hover:bg-slate-50 text-slate-700 border border-slate-300 text-xs font-semibold shadow-2xs transition-all"
+                className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-teal-50 hover:bg-teal-100 text-teal-950 border border-teal-300 text-xs font-semibold shadow-2xs transition-all"
               >
-                <Globe className="w-3.5 h-3.5 text-slate-500" />
+                <Globe className="w-3.5 h-3.5 text-teal-700" />
                 <span>urban-heat.ai-aarti.com</span>
-                <ExternalLink className="w-3 h-3 text-slate-400" />
+                <ExternalLink className="w-3 h-3 text-teal-400" />
               </a>
             </div>
           </div>

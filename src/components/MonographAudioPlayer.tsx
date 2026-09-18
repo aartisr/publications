@@ -62,7 +62,7 @@ export const MonographAudioPlayer: React.FC<MonographAudioPlayerProps> = ({
   const [isSpeechSupported, setIsSpeechSupported] = useState(false);
 
   const duration = 150; // 2:30 total briefing length in seconds
-  const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
     setIsSpeechSupported('speechSynthesis' in window);
