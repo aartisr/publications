@@ -22,19 +22,22 @@ import {
   ShieldCheck,
   AlertTriangle,
   Lightbulb,
-  HelpCircle
+  HelpCircle,
+  Sigma
 } from 'lucide-react';
 
 interface ReadingInterfaceProps {
   publication: Publication;
   onBack: () => void;
   onOpenArchitecture: () => void;
+  onOpenMathDeepDive?: () => void;
 }
 
 export const ReadingInterface: React.FC<ReadingInterfaceProps> = ({
   publication,
   onBack,
-  onOpenArchitecture
+  onOpenArchitecture,
+  onOpenMathDeepDive
 }) => {
   const [fontSize, setFontSize] = useState<'normal' | 'large' | 'xl'>('normal');
   const [fontSerif, setFontSerif] = useState<boolean>(true);
@@ -134,6 +137,18 @@ export const ReadingInterface: React.FC<ReadingInterfaceProps> = ({
                 A++
               </button>
             </div>
+
+            {/* Math Deep Dive Button */}
+            {onOpenMathDeepDive && (
+              <button
+                onClick={onOpenMathDeepDive}
+                className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-semibold bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-300"
+                title="Open Mathematical Deep Dive & Spectral Proofs Modal"
+              >
+                <Sigma className="w-3.5 h-3.5 text-amber-700" />
+                <span className="hidden sm:inline">Math Proofs</span>
+              </button>
+            )}
 
             {/* BibTeX Button */}
             <button
@@ -293,8 +308,22 @@ export const ReadingInterface: React.FC<ReadingInterfaceProps> = ({
                 })}
               </nav>
 
-              {/* Research Blueprint Shortcut */}
-              <div className="pt-4 border-t border-slate-200">
+              {/* Research Blueprint & Math Shortcuts */}
+              <div className="pt-4 border-t border-slate-200 space-y-2">
+                {onOpenMathDeepDive && (
+                  <button
+                    onClick={onOpenMathDeepDive}
+                    className="w-full text-left p-3 rounded-xl bg-amber-50 border border-amber-200 text-amber-950 text-xs hover:bg-amber-100 transition-colors shadow-2xs"
+                  >
+                    <div className="flex items-center gap-1.5 text-amber-900 font-bold">
+                      <Sigma className="w-4 h-4 text-amber-700" /> Math & Spectral Proofs
+                    </div>
+                    <div className="text-[11px] text-amber-800/80 mt-1 leading-snug">
+                      Cheeger inequality, Graph Laplacians & #P percolation
+                    </div>
+                  </button>
+                )}
+
                 <button
                   onClick={onOpenArchitecture}
                   className="w-full text-left p-3 rounded-xl bg-slate-900 text-white text-xs hover:bg-slate-800 transition-colors shadow-2xs"

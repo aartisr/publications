@@ -6,6 +6,7 @@ import { PublicationCard } from './components/PublicationCard';
 import { ReadingInterface } from './components/ReadingInterface';
 import { Top10BenchmarkModal } from './components/Top10BenchmarkModal';
 import { DashboardArchitectureModal } from './components/DashboardArchitectureModal';
+import { MathDeepDiveModal } from './components/MathDeepDiveModal';
 import { SubscribeModal } from './components/SubscribeModal';
 import { ThermalScatterChart } from './components/charts/ThermalScatterChart';
 import { MetropolitanHeatMap } from './components/charts/MetropolitanHeatMap';
@@ -28,6 +29,7 @@ export default function App() {
   // Modals
   const [isBenchmarkOpen, setIsBenchmarkOpen] = useState(false);
   const [isArchitectureOpen, setIsArchitectureOpen] = useState(false);
+  const [isMathDeepDiveOpen, setIsMathDeepDiveOpen] = useState(false);
   const [isSubscribeOpen, setIsSubscribeOpen] = useState(false);
 
   // Filter Logic
@@ -101,6 +103,7 @@ export default function App() {
       <Navbar
         onOpenBenchmarks={() => setIsBenchmarkOpen(true)}
         onOpenArchitecture={() => setIsArchitectureOpen(true)}
+        onOpenMathDeepDive={() => setIsMathDeepDiveOpen(true)}
         onOpenSubscribe={() => setIsSubscribeOpen(true)}
         activeView={activeView}
         onToggleView={(view) => {
@@ -115,6 +118,7 @@ export default function App() {
           publication={selectedPublication}
           onBack={handleBackToPortfolio}
           onOpenArchitecture={() => setIsArchitectureOpen(true)}
+          onOpenMathDeepDive={() => setIsMathDeepDiveOpen(true)}
         />
       ) : (
         <main className="flex-1">
@@ -122,6 +126,7 @@ export default function App() {
           <AuthorProfileBanner
             onOpenBenchmarks={() => setIsBenchmarkOpen(true)}
             onOpenArchitecture={() => setIsArchitectureOpen(true)}
+            onOpenMathDeepDive={() => setIsMathDeepDiveOpen(true)}
             onOpenSubscribe={() => setIsSubscribeOpen(true)}
           />
 
@@ -161,6 +166,14 @@ export default function App() {
                   </div>
 
                   <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setIsMathDeepDiveOpen(true)}
+                      className="px-3 py-1.5 rounded-lg bg-amber-100 hover:bg-amber-200 border border-amber-300 text-amber-950 text-xs font-bold flex items-center gap-1.5 transition-colors shadow-2xs"
+                    >
+                      <Sparkles className="w-3.5 h-3.5 text-amber-700" />
+                      <span>Mathematical & Spectral Proofs</span>
+                    </button>
+
                     <button
                       onClick={() => setIsArchitectureOpen(true)}
                       className="px-3 py-1.5 rounded-lg bg-white border border-slate-300 hover:bg-slate-50 text-slate-800 text-xs font-semibold flex items-center gap-1.5 transition-colors"
@@ -400,6 +413,14 @@ export default function App() {
               <ul className="space-y-1.5 text-slate-400">
                 <li>
                   <button
+                    onClick={() => setIsMathDeepDiveOpen(true)}
+                    className="hover:text-amber-300 transition-colors text-left font-medium text-amber-200/90"
+                  >
+                    Math & Spectral Theory Defense
+                  </button>
+                </li>
+                <li>
+                  <button
                     onClick={() => setIsBenchmarkOpen(true)}
                     className="hover:text-amber-300 transition-colors text-left"
                   >
@@ -442,6 +463,11 @@ export default function App() {
       </footer>
 
       {/* Global Modals */}
+      <MathDeepDiveModal
+        isOpen={isMathDeepDiveOpen}
+        onClose={() => setIsMathDeepDiveOpen(false)}
+      />
+
       <Top10BenchmarkModal
         isOpen={isBenchmarkOpen}
         onClose={() => setIsBenchmarkOpen(false)}

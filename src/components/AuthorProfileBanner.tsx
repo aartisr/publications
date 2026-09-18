@@ -1,15 +1,17 @@
 import React from 'react';
-import { Award, BookOpen, ExternalLink, GitBranch, Layers, ShieldCheck, Sparkles, Globe, Mail, FileText } from 'lucide-react';
+import { Award, BookOpen, ExternalLink, GitBranch, Layers, ShieldCheck, Sparkles, Globe, Mail, FileText, Sigma } from 'lucide-react';
 
 interface AuthorProfileBannerProps {
   onOpenBenchmarks: () => void;
   onOpenArchitecture: () => void;
+  onOpenMathDeepDive: () => void;
   onOpenSubscribe: () => void;
 }
 
 export const AuthorProfileBanner: React.FC<AuthorProfileBannerProps> = ({
   onOpenBenchmarks,
   onOpenArchitecture,
+  onOpenMathDeepDive,
   onOpenSubscribe
 }) => {
   return (
@@ -45,11 +47,19 @@ export const AuthorProfileBanner: React.FC<AuthorProfileBannerProps> = ({
             {/* Academic Badges & Direct Actions */}
             <div className="flex flex-wrap items-center gap-3 mt-6 pt-2">
               <button
+                onClick={onOpenMathDeepDive}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-100 hover:bg-amber-200 text-amber-950 border border-amber-400/80 text-xs font-bold shadow-xs transition-all"
+              >
+                <Sigma className="w-4 h-4 text-amber-800" />
+                <span>Math & Spectral Theory Defense</span>
+              </button>
+
+              <button
                 onClick={onOpenBenchmarks}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-950 border border-amber-300 text-xs font-semibold shadow-xs transition-all"
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white hover:bg-slate-50 text-slate-800 border border-slate-300 text-xs font-semibold shadow-xs transition-all"
               >
                 <Award className="w-4 h-4 text-amber-700" />
-                <span>Top 10 Scientific Journals Design Study</span>
+                <span>Top 10 Scientific Journals Study</span>
               </button>
 
               <button
@@ -57,7 +67,7 @@ export const AuthorProfileBanner: React.FC<AuthorProfileBannerProps> = ({
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold shadow-xs transition-all"
               >
                 <Layers className="w-4 h-4 text-amber-400" />
-                <span>Metropolitan Dashboard Architecture</span>
+                <span>Metropolitan Architecture</span>
               </button>
 
               <a

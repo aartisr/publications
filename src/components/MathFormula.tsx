@@ -8,6 +8,7 @@ interface MathFormulaProps {
   explanation?: string;
   equationNumber?: number | string;
   className?: string;
+  inline?: boolean;
 }
 
 export const MathFormula: React.FC<MathFormulaProps> = ({
@@ -15,8 +16,13 @@ export const MathFormula: React.FC<MathFormulaProps> = ({
   label,
   explanation,
   equationNumber,
-  className = ''
+  className = '',
+  inline = false
 }) => {
+  if (inline) {
+    return <InlineMath math={math} className={className} />;
+  }
+
   const [copied, setCopied] = useState(false);
   const [showLatex, setShowLatex] = useState(false);
 
