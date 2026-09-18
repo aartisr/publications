@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { X, Server, Database, Cpu, Layers, Activity, Eye, ShieldCheck, Download, Code, GitBranch, ArrowRight, ExternalLink } from 'lucide-react';
+import { MathFormula } from './MathFormula';
 
 interface DashboardArchitectureModalProps {
   isOpen: boolean;
@@ -214,35 +215,26 @@ export const DashboardArchitectureModal: React.FC<DashboardArchitectureModalProp
 
           {activeTab === 'equations' && (
             <div className="space-y-4">
-              <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl">
-                <div className="text-xs font-mono text-amber-800 font-bold uppercase">Equation 1: Split-Window Radiative Transfer</div>
-                <div className="my-2 p-3 bg-white border border-slate-200 rounded font-mono text-center text-sm font-semibold text-slate-900 overflow-x-auto">
-                  LST = [ K₂ / ln( (K₁ / L_λ) + 1 ) ] · [ 1 / (1 + (λ · T_sensor / ρ) · ln(ε)) ]
-                </div>
-                <p className="text-xs text-slate-600">
-                  Calibrates sensor thermal radiance L_λ into surface temperature, accounting for surface emissivity ε derived from Sentinel-2 vegetative indices.
-                </p>
-              </div>
+              <MathFormula
+                math="T_s = \frac{K_2}{\ln\left(\frac{K_1}{L_\lambda} + 1\right)} \cdot \frac{1}{1 + \left(\frac{\lambda \cdot T_{sensor}}{\rho}\right) \ln(\varepsilon)}"
+                label="Equation 1: Split-Window Radiative Transfer"
+                explanation="Calibrates sensor thermal radiance $L_\lambda$ into ground land surface temperature $T_s$, accounting for surface emissivity $\varepsilon$ derived from Sentinel-2 vegetative indices."
+                equationNumber="1"
+              />
 
-              <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl">
-                <div className="text-xs font-mono text-amber-800 font-bold uppercase">Equation 2: Thermodynamic Mitigation Attenuation</div>
-                <div className="my-2 p-3 bg-white border border-slate-200 rounded font-mono text-center text-sm font-semibold text-slate-900 overflow-x-auto">
-                  ΔT_LST = - [ α_tree · (ΔC_veg)^0.75 + β_albedo · Δa_roof · (1 - CF) + γ_pave · ΔP_perm ]
-                </div>
-                <p className="text-xs text-slate-600">
-                  Exploratory scenario model computing net thermodynamic cooling depression from simultaneous vegetative expansion, cool roof retrofits, and permeable pavement.
-                </p>
-              </div>
+              <MathFormula
+                math="\Delta T_{LST} = - \left[ \alpha_{tree} \cdot (\Delta C_{veg})^{0.75} + \beta_{albedo} \cdot \Delta a_{roof} \cdot (1 - \text{CF}) + \gamma_{pave} \cdot \Delta P_{perm} \right]"
+                label="Equation 2: Thermodynamic Mitigation Attenuation"
+                explanation="Exploratory scenario model computing net thermodynamic cooling depression $\Delta T_{LST}$ from simultaneous vegetative expansion $\Delta C_{veg}$, cool roof retrofits $\Delta a_{roof}$, and permeable pavement $\Delta P_{perm}$."
+                equationNumber="2"
+              />
 
-              <div className="p-4 bg-slate-50 border border-slate-200 rounded-xl">
-                <div className="text-xs font-mono text-amber-800 font-bold uppercase">Equation 3: Canopy Percolation Connectivity Criterion</div>
-                <div className="my-2 p-3 bg-white border border-slate-200 rounded font-mono text-center text-sm font-semibold text-slate-900 overflow-x-auto">
-                  p_canopy ≥ p_c ≈ 0.382 &DoubleLongRightArrow; Convective Corridor Emergence
-                </div>
-                <p className="text-xs text-slate-600">
-                  As shown in Aarti's Robustness Lab, cooling shifts from localized tree shade to macroscopic wind-cooling corridors only when canopy density crosses the critical percolation threshold.
-                </p>
-              </div>
+              <MathFormula
+                math="P(p) \sim (p - p_c)^\beta \quad \text{for } p \ge p_c \quad (p_c \approx 0.382)"
+                label="Equation 3: Canopy Percolation Connectivity Criterion"
+                explanation="As formulated in Aarti's Robustness Lab, cooling shifts from localized tree shade to macroscopic wind-cooling corridors only when canopy density crosses the critical percolation threshold $p_c$."
+                equationNumber="3"
+              />
             </div>
           )}
 

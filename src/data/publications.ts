@@ -90,7 +90,7 @@ export const PUBLICATIONS_DATA: Publication[] = [
           equation: {
             label: 'Land Surface Temperature Split-Window Radiative Formulation',
             latex: 'T_s = \\frac{K_2}{\\ln\\left(\\frac{K_1}{L_\\lambda} + 1\\right)} \\cdot \\frac{1}{1 + \\left(\\frac{\\lambda \\cdot T_{sensor}}{\\rho}\\right) \\ln(\\varepsilon)}',
-            explanation: 'Where Ts is Land Surface Temperature (Kelvin), K1 and K2 are satellite calibration constants (Landsat TIRS Band 10: K1 = 774.88 W/(m²·sr·μm), K2 = 1321.08 K), Lλ is spectral radiance, λ is wavelength of emitted radiance (10.8 μm), ρ = h·c/σ = 1.4388×10⁻² m·K, and ε is surface land emissivity derived from NDVI.'
+            explanation: 'Where $T_s$ is Land Surface Temperature (Kelvin), $K_1$ and $K_2$ are satellite calibration constants (Landsat TIRS Band 10: $K_1 = 774.88\\text{ W}/(\\text{m}^2\\cdot\\text{sr}\\cdot\\mu\\text{m})$, $K_2 = 1321.08\\text{ K}$), $L_\\lambda$ is spectral radiance, $\\lambda$ is wavelength of emitted radiance ($10.8\\,\\mu\\text{m}$), $\\rho = hc/\\sigma = 1.4388\\times 10^{-2}\\,\\text{m}\\cdot\\text{K}$, and $\\varepsilon$ is surface land emissivity derived from NDVI.'
           }
         },
         {
@@ -132,16 +132,16 @@ export const PUBLICATIONS_DATA: Publication[] = [
               The simulator models the thermodynamic sensible heat flux attenuation achieved via three concurrent urban landscape interventions:
             </p>
             <ol class="list-decimal pl-6 space-y-2 text-slate-700 mb-4">
-              <li><strong>Urban Tree Canopy Expansion (ΔCanopy %):</strong> Enhances evapotranspirative cooling and localized solar radiation attenuation.</li>
-              <li><strong>Cool Roof Retrofits (ΔAlbedo):</strong> Elevates solar reflectance of commercial and multi-family residential rooftops from baseline 0.12-0.15 to high-albedo 0.65-0.80 coatings.</li>
-              <li><strong>Permeable & Reflective Pavement (ΔPavement %):</strong> Reduces thermal mass storage within urban road and parking networks.</li>
+              <li><strong>Urban Tree Canopy Expansion (<em>ΔCanopy %</em>):</strong> Enhances evapotranspirative cooling and localized solar radiation attenuation.</li>
+              <li><strong>Cool Roof Retrofits (<em>ΔAlbedo</em>):</strong> Elevates solar reflectance of commercial and multi-family residential rooftops from baseline 0.12–0.15 to high-albedo 0.65–0.80 coatings.</li>
+              <li><strong>Permeable & Reflective Pavement (<em>ΔPavement %</em>):</strong> Reduces thermal mass storage within urban road and parking networks.</li>
             </ol>
           `,
           hasD3Chart: 'simulator',
           equation: {
             label: 'Surface Thermodynamic Heat Budget Attenuation',
-            latex: '\\Delta T_{LST} = - \\left[ \\alpha_{tree} \\cdot \\Delta C_{veg}^{0.75} + \\beta_{albedo} \\cdot \\Delta a_{roof} \\cdot (1 - \\text{CF}) + \\gamma_{pave} \\cdot \\Delta P_{perm} \\right]',
-            explanation: 'Where ΔTLST is predicted land surface temperature depression (°C), αtree = 0.28 °C/% is the empirical evapotranspirative coefficient, ΔCveg is canopy gain, βalbedo = 11.4 °C/unit is solar reflectance sensitivity, CF is cloud cover/shading fraction, and γpave = 0.14 °C/% is permeable pavement thermodynamic relief factor.'
+            latex: '\\Delta T_{LST} = - \\left[ \\alpha_{tree} \\cdot (\\Delta C_{veg})^{0.75} + \\beta_{albedo} \\cdot \\Delta a_{roof} \\cdot (1 - \\text{CF}) + \\gamma_{pave} \\cdot \\Delta P_{perm} \\right]',
+            explanation: 'Where $\\Delta T_{LST}$ is predicted land surface temperature depression (°C), $\\alpha_{tree} = 0.28\\text{ }^\\circ\\text{C}/\\%$ is the empirical evapotranspirative coefficient, $\\Delta C_{veg}$ is canopy gain (%), $\\beta_{albedo} = 11.4\\text{ }^\\circ\\text{C}/\\text{unit}$ is solar reflectance sensitivity, $\\text{CF}$ is cloud cover / shading fraction, and $\\gamma_{pave} = 0.14\\text{ }^\\circ\\text{C}/\\%$ is the permeable pavement thermodynamic relief factor.'
           }
         },
         {
@@ -149,7 +149,7 @@ export const PUBLICATIONS_DATA: Publication[] = [
           title: '6. The Robustness Lab: Spectral, Reliability & Percolation Reasoning',
           contentHtml: `
             <p class="leading-relaxed text-slate-700 mb-4">
-              A distinctive contribution of Aarti's research is the <strong>Robustness Lab</strong>. Urban microclimates are non-linear, complex adaptive systems prone to percolation phase transitions. Isolated tree planting does not generate continuous cooling corridors until canopy connectivity crosses the critical percolation threshold (p_c ≈ 0.38 in urban street topologies).
+              A distinctive contribution of Aarti\'s research is the <strong>Robustness Lab</strong>. Urban microclimates are non-linear, complex adaptive systems prone to percolation phase transitions. Isolated tree planting does not generate continuous cooling corridors until canopy connectivity crosses the critical percolation threshold (<em>p</em><sub>c</sub> ≈ 0.382 in urban street topologies).
             </p>
             <p class="leading-relaxed text-slate-700">
               The Robustness Lab evaluates model sensitivity against sensor calibration drift, atmospheric aerosol interference, and spatial autocorrelation (Moran\'s I). This safeguards municipal officials from allocating multi-million-dollar capital budgets on sub-critical interventions that fail to lower ambient pedestrian heat stress.

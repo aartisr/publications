@@ -3,6 +3,7 @@ import { Publication } from '../types';
 import { ThermalScatterChart } from './charts/ThermalScatterChart';
 import { MetropolitanHeatMap } from './charts/MetropolitanHeatMap';
 import { MitigationSimulator } from './charts/MitigationSimulator';
+import { MathFormula } from './MathFormula';
 import {
   ArrowLeft,
   BookOpen,
@@ -334,17 +335,11 @@ export const ReadingInterface: React.FC<ReadingInterfaceProps> = ({
 
                   {/* Mathematical Formulation Callout */}
                   {sec.equation && (
-                    <div className="my-6 p-4 sm:p-5 bg-white border border-slate-300 rounded-xl shadow-xs">
-                      <div className="text-[11px] font-mono text-amber-900 uppercase tracking-wider font-semibold mb-2">
-                        {sec.equation.label}
-                      </div>
-                      <div className="p-3.5 bg-slate-900 text-amber-200 rounded-lg text-center font-mono text-xs sm:text-sm overflow-x-auto shadow-inner">
-                        {sec.equation.latex}
-                      </div>
-                      <p className="text-xs text-slate-600 mt-2.5 leading-relaxed font-sans">
-                        {sec.equation.explanation}
-                      </p>
-                    </div>
+                    <MathFormula
+                      math={sec.equation.latex}
+                      label={sec.equation.label}
+                      explanation={sec.equation.explanation}
+                    />
                   )}
 
                   {/* Scholarly Callout Box */}
