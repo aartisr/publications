@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Publication } from '../types';
 import { documentExportService } from '../services/documentExportService';
+import { telemetryService } from '../services/telemetryService';
 import {
   X,
   Download,
@@ -54,6 +55,7 @@ export const DownloadMonographModal: React.FC<DownloadMonographModalProps> = ({
     } else if (activeFormat === 'json') {
       documentExportService.downloadJson(publication);
     }
+    telemetryService.trackDownload(publication.title, activeFormat);
   };
 
   return (

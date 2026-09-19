@@ -18,6 +18,7 @@ import {
 } from 'lucide-react';
 import { Publication } from '../types';
 import { RenderMathText, MathFormula } from './MathFormula';
+import { telemetryService } from '../services/telemetryService';
 
 interface AiScholarAssistantModalProps {
   isOpen: boolean;
@@ -118,6 +119,8 @@ export const AiScholarAssistantModal: React.FC<AiScholarAssistantModalProps> = (
     };
 
     setMessages((prev) => [...prev, userMsg]);
+    // This records only query length and never the query text.
+    telemetryService.trackAiQuery(textToSend);
     if (!queryText) setInput('');
     setIsTyping(true);
 

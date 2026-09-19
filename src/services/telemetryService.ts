@@ -1,9 +1,20 @@
 import posthog from 'posthog-js';
 
-// Default project tokens with fallback support
-const POSTHOG_KEY = (import.meta.env.VITE_POSTHOG_KEY as string) || 'phc_open_science_archive_2026';
-const POSTHOG_HOST = (import.meta.env.VITE_POSTHOG_HOST as string) || 'https://us.i.posthog.com';
-const CLARITY_ID = (import.meta.env.VITE_CLARITY_ID as string) || 'q8k4x9z10c';
+type ClarityCommand = 'consent' | 'event' | 'set';
+type ClarityClient = (command: ClarityCommand, ...args: string[]) => void;
+
+declare global {
+  interface Window {
+    clarity?: ClarityClient;
+  }
+}
+
+const POSTHOG_KEY = import.meta.env.VITE_POSTHOG_KEY?.trim();
+const POSTHOG_HOST = import.meta.env.VITE_POSTHOG_HOST?.trim() || 'https://us.i.posthog.com';
+const CLARITY_ID = import.meta.env.VITE_CLARITY_ID?.trim();
+const ANALYTICS_ENABLED = import.meta.env.VITE_ANALYTICS_ENABLED === 'true';
+
+const safeTagValue = (value: unknown) => String(value).slice(0, 255);
 
 class TelemetryService {
   private isPostHogInitialized = false;
@@ -14,21 +25,20 @@ class TelemetryService {
   }
 
   public initTelemetry(): void {
-    if (typeof window === 'undefined') return;
+    if (typeof window === 'undefined' || !ANALYTICS_ENABLED || navigator.doNotTrack === '1') return;
 
-    // 1. Initialize PostHog
+    // PostHog is opt-in through VITE_ANALYTICS_ENABLED and its project key.
     try {
-      if (!this.isPostHogInitialized) {
+      if (POSTHOG_KEY && !this.isPostHogInitialized) {
         posthog.init(POSTHOG_KEY, {
           api_host: POSTHOG_HOST,
           person_profiles: 'identified_only',
-          capture_pageview: true,
+          // Page views are emitted by App so client-side view changes are not
+          // double-counted by PostHog's automatic initial capture.
+          capture_pageview: false,
           capture_pageleave: true,
           autocapture: true,
           persistence: 'localStorage',
-          bootstrap: {
-            distinctID: 'anon_' + Math.random().toString(36).substring(2, 11),
-          },
           loaded: (ph) => {
             this.isPostHogInitialized = true;
             ph.register({
@@ -43,20 +53,22 @@ class TelemetryService {
       console.warn('PostHog initialization notice:', err);
     }
 
-    // 2. Initialize Microsoft Clarity
+    // Microsoft Clarity loads asynchronously and receives only event names and
+    // bounded, non-sensitive custom tags.
     try {
-      if (!this.isClarityInitialized && !(window as any).clarity) {
-        (function (c: any, l: any, a: any, r: any, i: any) {
+      if (CLARITY_ID && !this.isClarityInitialized && !window.clarity) {
+        (function (c: Window, l: Document, a: 'clarity', r: 'script', i: string) {
           c[a] =
             c[a] ||
-            function () {
-              (c[a].q = c[a].q || []).push(arguments);
-            };
+            ((...command: [ClarityCommand, ...string[]]) => {
+              const queue = ((c[a] as unknown as { q?: unknown[][] }).q ||= []);
+              queue.push(command);
+            });
           const t = l.createElement(r);
           t.async = 1;
           t.src = 'https://www.clarity.ms/tag/' + i;
           const y = l.getElementsByTagName(r)[0];
-          y.parentNode.insertBefore(t, y);
+          y?.parentNode?.insertBefore(t, y);
         })(window, document, 'clarity', 'script', CLARITY_ID);
         this.isClarityInitialized = true;
       }
@@ -69,18 +81,21 @@ class TelemetryService {
    * Track custom user interaction events in PostHog and Clarity
    */
   public trackEvent(eventName: string, properties: Record<string, any> = {}): void {
+    if (!ANALYTICS_ENABLED || navigator.doNotTrack === '1') return;
     try {
-      // PostHog event dispatch
-      posthog.capture(eventName, {
-        timestamp: new Date().toISOString(),
-        url: typeof window !== 'undefined' ? window.location.href : '',
-        ...properties,
-      });
+      if (this.isPostHogInitialized) {
+        posthog.capture(eventName, {
+          timestamp: new Date().toISOString(),
+          url: typeof window !== 'undefined' ? window.location.href : '',
+          ...properties,
+        });
+      }
 
-      // Microsoft Clarity custom tags/events
-      if (typeof window !== 'undefined' && (window as any).clarity) {
-        (window as any).clarity('set', eventName, JSON.stringify(properties));
-        (window as any).clarity('event', eventName);
+      if (window.clarity) {
+        window.clarity('event', eventName);
+        Object.entries(properties)
+          .filter(([, value]) => ['string', 'number', 'boolean'].includes(typeof value))
+          .forEach(([key, value]) => window.clarity?.('set', key, safeTagValue(value)));
       }
     } catch (err) {
       console.debug('Telemetry dispatch:', err);
@@ -133,10 +148,9 @@ class TelemetryService {
    */
   public setSessionTag(key: string, value: string): void {
     try {
-      if (typeof window !== 'undefined' && (window as any).clarity) {
-        (window as any).clarity('set', key, value);
-      }
-      posthog.register({ [key]: value });
+      if (!ANALYTICS_ENABLED || navigator.doNotTrack === '1') return;
+      window.clarity?.('set', key, safeTagValue(value));
+      if (this.isPostHogInitialized) posthog.register({ [key]: value });
     } catch (err) {
       // ignore
     }
