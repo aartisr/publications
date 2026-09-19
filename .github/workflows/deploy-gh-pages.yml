@@ -28,7 +28,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
           cache: 'npm'
 
       - name: Install Dependencies
@@ -44,6 +44,11 @@ jobs:
           mkdir -p dist/docs dist/wiki
           cp -r docs/* dist/docs/ || true
           cp -r wiki/* dist/wiki/ || true
+
+      - name: Include the canonical sitemap
+        run: |
+          test -f public/sitemap.xml
+          cp public/sitemap.xml dist/sitemap.xml
 
       - name: Upload Pages Artifact
         uses: actions/upload-pages-artifact@v3
