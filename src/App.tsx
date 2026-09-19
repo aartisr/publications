@@ -4,6 +4,7 @@ import { Navbar } from './components/Navbar';
 import { PortfolioView } from './components/views/PortfolioView';
 import { Footer } from './components/layout/Footer';
 import { SEOHead } from './components/seo/SEOHead';
+import { PwaInstallPrompt } from './components/PwaInstallPrompt';
 import { publicationService } from './services/publicationService';
 import { telemetryService } from './services/telemetryService';
 import { Publication } from './types';
@@ -166,6 +167,8 @@ export default function App() {
         <Sparkles className="w-4 h-4 text-amber-400 group-hover:rotate-12 transition-transform" />
         <span className="hidden sm:inline font-mono uppercase tracking-wider text-[11px]">AI Scholarly Assistant</span>
       </button>
+
+      <PwaInstallPrompt />
 
       {/* Global Academic, Community & Discoverability Modals */}
       <Suspense fallback={null}>
